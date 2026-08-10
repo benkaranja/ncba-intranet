@@ -137,6 +137,53 @@ If you add an image, generate it at the slot size or the checker will fail. The 
 
 ---
 
+## 5b. Deploying an update
+
+The site is published from `benkaranja/ncba-intranet` to GitHub Pages at
+**https://benkaranja.github.io/ncba-intranet/**.
+
+```bash
+python3 docs/check.py          # must pass before pushing
+git add -A
+git commit -m "..."
+git push origin main           # Pages rebuilds in ~30s
+```
+
+### Authentication — repo-scoped deploy key
+
+This project does **not** use an account-wide SSH key. It uses a **deploy key**, which is registered on this one repository (Settings -> Deploy keys) and grants access to nothing else. Compromising it cannot reach any other project.
+
+| Piece | Value |
+|---|---|
+| Private key | `~/.ssh/id_ed25519_ncba_intranet` (never leaves the machine) |
+| SSH alias | `github-ncba-intranet` in `~/.ssh/config` |
+| Remote | `git@github-ncba-intranet:benkaranja/ncba-intranet.git` |
+
+```
+Host github-ncba-intranet
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_ncba_intranet
+  IdentitiesOnly yes
+```
+
+**`IdentitiesOnly yes` is what makes the scoping real.** Without it, ssh offers every key in `~/.ssh` to every host, and a "per-repo" setup quietly stops being per-repo.
+
+A successful handshake greets you with the **repository** name, not your username — that is how you can tell a deploy key is in use:
+
+```
+$ ssh -T git@github-ncba-intranet
+Hi benkaranja/ncba-intranet! You've successfully authenticated...
+```
+
+To repeat this for another project: generate a new key file, add a new `Host` alias, and register the public key as a deploy key on that repo with **Allow write access** ticked.
+
+### Images are derived files
+
+`assets/img/**` is generated from the source artwork. **If a source image is replaced, the site keeps serving the old one until the images are re-rendered.** This has already caused one silent stale-image bug (decision D-036). Re-render after any artwork change, then re-run the checker.
+
+---
+
 ## 6. Known limitations
 
 - **Not a SharePoint solution.** No SPFx, no page templates, no site scripts. Rebuilding is manual, guided by §3.
