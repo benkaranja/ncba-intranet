@@ -60,14 +60,13 @@ The brief's paths did not match disk. These are the real ones, used throughout:
 
 ## 4. Locked image slots
 
-Four slots. Every instance of a slot uses exactly one dimension. Full detail in `docs/component-specs.md`.
+Three slots (the `sidebar-tile` slot was retired in D-042). Every instance of a slot uses exactly one dimension. Full detail in `docs/component-specs.md`.
 
 | Slot | Locked size | Ratio | Used by |
 |---|---|---|---|
 | `hero-banner` | **1448 × 234** | 6.19:1 | Page header banner, all 7 pages, full-bleed |
 | `media-16x9` | **940 × 529** | 16:9 | Carousel slides, video thumbnails, full-width feature images, article hero |
 | `loop-thumb` | **320 × 180** | 16:9 | Blog-post loop side image (news + video variants) |
-| `sidebar-tile` | **288 × 162** | 16:9 | Sidebar widget imagery |
 
 **Crop rules (verified visually before locking):**
 - 16:9-native sources (1920×1080) → **no crop** at `media-16x9`. Chosen specifically so KV headline text and the "Go for it" badge are never clipped.
@@ -92,15 +91,17 @@ Four slots. Every instance of a slot uses exactly one dimension. Full detail in 
 
 ## 6. Sidebar widget order
 
-**Group sidebar** — `index.html`, `connect-with-john.html`, `kenya-mcc.html`, `kenya-strategy.html`, `kenya-hr.html`, `article.html`:
+**Group sidebar** — `index`, `connect-with-john`, `kenya-mcc`, `kenya-strategy`, `kenya-hr`, `article`:
 
-1. Quick Links · 2. Ubuntu Strategy · 3. **NCBA Staff Updates** · 4. Success Factors · 5. Brand Manifesto · 6. Ask John · 7. Financials · 8. Culture Page · 9. Events
+1. Quick Links — Ubuntu Strategy · Success Factors · Brand Manifesto · Ask John · Financials · Culture Page
+2. NCBA Staff Updates (Viva Engage feed)
 
-**Regional sidebar** — `region-kenya.html` only:
+**Regional sidebar** — `region-kenya.html`:
 
-1. Quick Links · 2. Ubuntu Strategy · 3. **NCBA Staff Updates** · 4. Memo Approval · 5. Merchandise Hub · 6. Rate My Service · 7. Daraja · 8. Culture Page · 9. Events
+1. Quick Links — Group · Ubuntu Strategy · Document Approval · Merchandise Hub · Rate My Service · Daraja
+2. NCBA Staff Updates (Viva Engage feed)
 
-*(Staff Updates promoted to 3rd on both sidebars and "Home" folded into the quick links — decisions D-031, D-032.)*
+*(Rebuilt to the client's supplied lists — decision D-042. The Events widget and all sidebar imagery were dropped as a consequence; the `sidebar-tile` slot is retired, leaving three image slots.)*
 
 ---
 

@@ -33,17 +33,12 @@ SLOT_DIMS = {
     "assets/img/hero":  (1448, 234),
     "assets/img/media": (940, 529),
     "assets/img/loop":  (320, 180),
-    "assets/img/tile":  (288, 162),
 }
 
 # NCBA Staff Updates sits third on both sidebars, and "Home" is now a quick
 # link rather than its own widget (user change, decisions D-031 / D-032).
-GROUP_SIDEBAR = ["Quick Links", "Ubuntu Strategy", "NCBA Staff Updates",
-                 "Success Factors", "Brand Manifesto", "Ask John",
-                 "Financials", "Culture Page", "Events"]
-REGIONAL_SIDEBAR = ["Quick Links", "Ubuntu Strategy", "NCBA Staff Updates",
-                    "Memo Approval", "Merchandise Hub", "Rate My Service",
-                    "Daraja", "Culture Page", "Events"]
+GROUP_SIDEBAR = ["Quick Links", "NCBA Staff Updates"]
+REGIONAL_SIDEBAR = ["Quick Links", "NCBA Staff Updates"]
 
 # The forbidden competitor name. Assembled from fragments so that this file
 # does not itself contain the literal string it is testing for -- the

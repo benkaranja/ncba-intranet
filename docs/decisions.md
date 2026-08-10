@@ -278,5 +278,30 @@ Slide 1 of the index carousel now points at **`video-gmd.jpg`** rather than gett
 
 Alt text updated from "GMD fireside chat key visual" to "A message from the Group Managing Director" to match what the artwork now says.
 
+### D-041 · GMD video hoisted above the carousel
+The GMD message was slide 1 of the home-page carousel; it is now its own `.media--video` block **above** the carousel, which drops to three slides. Home-page order is now: GMD video -> carousel -> Ubuntu Spirit video -> quote -> news -> help.
+
+### D-042 · Sidebar reduced to Quick Links + Viva Engage
+The sidebar was nine widgets. The supplied lists specify the quick-link contents and end with "Viva engage page **below**", which reads as a description of the whole rail rather than of one widget. Implemented literally:
+
+| | Quick Links |
+|---|---|
+| **Group** (6 pages) | Ubuntu Strategy · Success Factors · Brand Manifesto · Ask John · Financials · Culture Page |
+| **Regional** | Group · Ubuntu Strategy · Document Approval · Merchandise Hub · Rate My Service · Daraja |
+
+Followed on both by the **NCBA Staff Updates** (Viva Engage) feed. "Memo Approval" renamed to "Document Approval" per the new wording.
+
+**Two consequences worth naming, neither of them requested:**
+1. **The Events widget is gone.** It appears in neither list. The original brief mandated Events in the sidebar order, so this is a real departure — flagged to the client rather than silently kept or silently dropped.
+2. **The sidebar no longer shows any imagery.** The quick links are text buttons, so the five `sidebar-tile` images had no home. The `tile` slot is retired: files deleted, build jobs removed, and the slot dropped from `check.py`. Three image slots remain (hero, media, loop).
+
+### D-043 · Orphaned assets removed
+The sidebar change stranded seven generated images (five tiles plus `loop-strategy` and `feature-john`, already unused from earlier edits). Found by diffing every `src` in the HTML against the files on disk, not by eye. All removed along with their build jobs; the check now reports **zero orphans and zero missing references** in both directions.
+
+### D-044 · Kenya quote reported missing, but is present
+Reported as absent from `region-kenya.html`. **It is there** — in the markup, on the live site, and rendering at 872 x 230px: *"The Kenya business is where a lot of our ideas get tested first…"*, attributed to Monica Kihia, Group Director, HR and Culture.
+
+No change made. The likely explanations are that the Kenya quote is different copy from the home-page one and was expected to be identical, or that it was missed on the page. Raised with the client rather than "fixed" by overwriting working content.
+
 ### D-019 · The acceptance grep covers `docs/` too
 Running the checker revealed that `implementation-plan.md`, `decisions.md` and `check.py` all contained the forbidden competitor name **while documenting the rule forbidding it** — which would have failed `grep -ril` over the tree. All three now refer to it only obliquely, and `check.py` assembles the search term from fragments at runtime. Caught by tooling, not by eye; a good argument for writing the checker before the pages.
