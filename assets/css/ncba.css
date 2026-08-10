@@ -244,15 +244,18 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: var(--surface);
   border-bottom: 1px solid var(--line);
 }
+/* NOTE: no `overflow-x: auto` here — it would clip the department dropdowns.
+   With four countries the row fits comfortably and wraps if it must. */
 .subnav__inner {
   max-width: calc(var(--canvas) + var(--sp-6) * 2);
   margin: 0 auto; padding: 0 var(--sp-6);
-  height: var(--h-subnav);
-  display: flex; align-items: center; gap: var(--sp-1);
-  overflow-x: auto;
+  min-height: var(--h-subnav);
+  display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-1);
 }
+.subnav__item { position: relative; display: flex; align-items: stretch; }
 .subnav a {
-  display: flex; align-items: center; height: var(--h-subnav);
+  display: flex; align-items: center; gap: var(--sp-1);
+  height: var(--h-subnav);
   padding: 0 var(--sp-3);
   font-size: var(--fs-nav); font-weight: 600; color: var(--body);
   white-space: nowrap; border-bottom: 2px solid transparent;
@@ -262,9 +265,28 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: var(--ncba-magenta); font-weight: 700;
   border-bottom-color: var(--ncba-magenta);
 }
-.subnav__sep {
-  flex: 0 0 1px; height: 20px; margin: 0 var(--sp-3);
-  background: var(--line-strong);
+.subnav .caret { width: 10px; height: 10px; flex: 0 0 10px; }
+
+/* Department dropdown — CSS only, same flyout pattern as the main nav */
+.submenu {
+  position: absolute; top: 100%; left: 0; z-index: 40;
+  min-width: 200px; padding: var(--sp-2) 0;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card-hover);
+  display: none;
+}
+.has-submenu:hover > .submenu,
+.has-submenu:focus-within > .submenu { display: block; }
+.submenu li { display: block; }
+.submenu a {
+  height: 36px; padding: 0 var(--sp-4);
+  font-weight: 400; color: var(--body); border-bottom: 0;
+}
+.submenu a:hover { background: var(--surface-alt); color: var(--ncba-magenta); }
+.submenu a.is-active {
+  color: var(--ncba-magenta); font-weight: 700;
+  background: var(--ncba-magenta-tint); border-bottom: 0;
 }
 
 /* --------------------------------------------------------------------------

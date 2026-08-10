@@ -49,9 +49,9 @@ The brief's paths did not match disk. These are the real ones, used throughout:
 | `kenya-hr.html` | L3 | Human Resources | ☑ |
 | `article.html` | L4 | Full post view — every loop card lands here | ☑ |
 | `assets/css/ncba.css` | — | The single stylesheet | ☑ |
-| `assets/img/` | — | Processed images, 4 locked sizes | ☑ (44 files) |
+| `assets/img/` | — | Processed images, 4 locked sizes | ☑ (45 files) |
 | `docs/implementation-plan.md` | — | This file | ☑ |
-| `docs/decisions.md` | — | Dated decision log | ☑ (D-001…D-023) |
+| `docs/decisions.md` | — | Dated decision log | ☑ (D-001…D-038) |
 | `docs/component-specs.md` | — | Per-component markup/CSS/dimension spec | ☑ |
 | `docs/handoff.md` | — | How to open it; SharePoint rebuild notes | ☑ |
 | `brand/NCBA-brand-guide.md` | — | Colour, type, spacing, tokens, image table | ☑ |
@@ -82,9 +82,9 @@ Four slots. Every instance of a slot uses exactly one dimension. Full detail in 
 
 `Group` · `Connect with John` · `Region ▾` · `Connect to Systems` · `Form Downloads` · `BUZZ` · `Rate My Service` · `Culture & Change` · `Automation Center` · `Sustainability`
 
-**Region dropdown** (CSS-only, no JS): Kenya · Uganda · Tanzania · Rwanda · Côte d'Ivoire — full country names, all → `region-kenya.html`.
+**Region dropdown** (CSS-only, no JS): Kenya · Uganda · Tanzania · Rwanda — full country names, all → `region-kenya.html`.
 
-**Secondary nav** (white strip under the magenta header, on L2/L3 pages): the five full country names, a divider, then `MCC` · `Strategy` · `Human Resources`. Active item is bolded with a magenta underline. This satisfies both "spell out full country names" and "L3 pages reachable from region-kenya.html".
+**Secondary nav** (white strip under the magenta header, on L2/L3 pages): the four full country names, **each carrying a dropdown** of `MCC` · `Strategy` · `Human Resources` (decision D-038). Active country is bolded with a magenta underline; the active department is highlighted inside its dropdown.
 
 **Link policy — zero dead links:** every `href` resolves to one of the 7 files or to a real in-page anchor (`#main`, `#news`, `#events`, `#help`). Nav items without a built page point at the current page's `#main`. Contact emails in "We're Here to Help" render as plain text, not `mailto:` links, so the link checker stays meaningful.
 
@@ -94,11 +94,13 @@ Four slots. Every instance of a slot uses exactly one dimension. Full detail in 
 
 **Group sidebar** — `index.html`, `connect-with-john.html`, `kenya-mcc.html`, `kenya-strategy.html`, `kenya-hr.html`, `article.html`:
 
-1. Quick Links · 2. Ubuntu Strategy · 3. Success Factors · 4. Brand Manifesto · 5. Ask John · 6. Financials · 7. Culture Page · 8. Events
+1. Quick Links · 2. Ubuntu Strategy · 3. **NCBA Staff Updates** · 4. Success Factors · 5. Brand Manifesto · 6. Ask John · 7. Financials · 8. Culture Page · 9. Events
 
 **Regional sidebar** — `region-kenya.html` only:
 
-1. Quick Links · 2. Home · 3. Ubuntu Strategy · 4. Memo Approval · 5. Merchandise Hub · 6. Rate My Service · 7. Daraja · 8. NCBA Staff Updates · 9. Culture Page · 10. Events
+1. Quick Links · 2. Ubuntu Strategy · 3. **NCBA Staff Updates** · 4. Memo Approval · 5. Merchandise Hub · 6. Rate My Service · 7. Daraja · 8. Culture Page · 9. Events
+
+*(Staff Updates promoted to 3rd on both sidebars and "Home" folded into the quick links — decisions D-031, D-032.)*
 
 ---
 

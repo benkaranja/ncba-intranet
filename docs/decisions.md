@@ -256,5 +256,20 @@ Drawn as `.quote::after` — an absolutely positioned 8px column — rather than
 
 Worth noting as a general hazard: the generated `assets/img/**` are derived files. If a source is swapped, the build must be re-run or the site silently keeps serving the old artwork.
 
+### D-037 · Dedicated GMD message artwork
+`A MESSAGE FROM THE GMD.png` (1920 × 1080) now supplies `video-gmd.jpg`, replacing `KV 1 - GMD FIRESIDE CHAT-1.png`. Native 16:9, so uncropped at `media-16x9`.
+
+**Scope:** exactly one `.media media--video` carries the heading "A message from the GMD" — the video on `region-kenya.html`. The index carousel's first slide is captioned "A message from the Group Managing Director", but that is a carousel slide, not the video component the instruction named, so it was left on `carousel-gmd.jpg`. Flagged rather than assumed.
+
+### D-038 · Departments became a dropdown under every country
+The secondary nav previously ran the four countries, a divider, then MCC · Strategy · Human Resources as flat siblings. Each country now carries its own CSS-only dropdown of the three department pages, matching the flyout the main nav already uses for Region.
+
+- `.subnav__item.has-submenu` + `.submenu`, opening on `:hover` and `:focus-within`. No JS.
+- Active country keeps the magenta underline; the active department is highlighted **inside** its dropdown on `--ncba-magenta-tint`.
+- **`.subnav__inner` lost `overflow-x: auto`** — it would have clipped the dropdowns outright. With four countries the row fits, and it wraps rather than scrolls. This was the one non-obvious consequence of the change.
+
+### D-039 · Côte d'Ivoire removed
+Dropped from `COUNTRIES`, so it disappears from both the main-nav Region flyout and every secondary nav. Also removed from `implementation-plan.md` and `component-specs.md`; a tree-wide grep for "ivoire|ivory" now returns nothing.
+
 ### D-019 · The acceptance grep covers `docs/` too
 Running the checker revealed that `implementation-plan.md`, `decisions.md` and `check.py` all contained the forbidden competitor name **while documenting the rule forbidding it** — which would have failed `grep -ril` over the tree. All three now refer to it only obliquely, and `check.py` assembles the search term from fragments at runtime. Caught by tooling, not by eye; a good argument for writing the checker before the pages.

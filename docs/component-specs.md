@@ -84,7 +84,7 @@ All inline SVG, 20px, `currentColor` white. Search is a non-submitting `<input t
 
 **Nav order (fixed on all 7 pages):** Group · Connect with John · Region ▾ · Connect to Systems · Form Downloads · BUZZ · Rate My Service · Culture & Change · Automation Center · Sustainability
 
-**Region dropdown `.menu`** — CSS-only, opens on `:hover` and `:focus-within`. Items: Kenya · Uganda · Tanzania · Rwanda · Côte d'Ivoire, all → `region-kenya.html`. White panel, `--shadow-card-hover`, 220px wide, 8px radius, 36px rows.
+**Region dropdown `.menu`** — CSS-only, opens on `:hover` and `:focus-within`. Items: Kenya · Uganda · Tanzania · Rwanda, all → `region-kenya.html`. White panel, `--shadow-card-hover`, 220px wide, 8px radius, 36px rows.
 
 | State | Treatment |
 |---|---|
@@ -97,8 +97,28 @@ All inline SVG, 20px, `currentColor` white. Search is a non-submitting `<input t
 ## 4. Secondary nav — `.subnav`
 
 L2/L3 pages only (`region-kenya`, `kenya-mcc`, `kenya-strategy`, `kenya-hr`).
-Countries in **full**: Kenya · Uganda · Tanzania · Rwanda · Côte d'Ivoire · `│` · MCC · Strategy · Human Resources.
-Countries other than Kenya → `region-kenya.html`. Department items → their L3 page. Active item: `--ncba-magenta`, weight 700, 2px magenta underline.
+
+Countries in **full**: Kenya · Uganda · Tanzania · Rwanda. **Each country carries a CSS-only dropdown** of MCC · Strategy · Human Resources (decision D-038), matching the flyout pattern of the main nav.
+
+```html
+<nav class="subnav" aria-label="Regions">
+  <div class="subnav__inner">
+    <div class="subnav__item has-submenu">
+      <a class="is-active" href="region-kenya.html">Kenya <svg class="caret">…</svg></a>
+      <ul class="submenu">
+        <li><a href="kenya-mcc.html">MCC</a></li>
+        <li><a href="kenya-strategy.html">Strategy</a></li>
+        <li><a href="kenya-hr.html">Human Resources</a></li>
+      </ul>
+    </div>
+    …
+  </div>
+</nav>
+```
+
+Countries all → `region-kenya.html` (only Kenya is built). Active country: `--ncba-magenta`, weight 700, 2px underline. Active department: magenta on `--ncba-magenta-tint` inside its dropdown.
+
+**`.subnav__inner` must not set `overflow-x: auto`** — it would clip the dropdowns. It wraps instead.
 
 ---
 
