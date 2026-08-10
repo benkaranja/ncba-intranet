@@ -246,5 +246,15 @@ background-size: 400px;
 
 At 400px the pattern renders near its native scale (`ubuntu-texture.jpg` is 420 × 300), so individual motifs are legible rather than reading as coloured noise — which 160px did at 4px wide. Applies to the same three elements and the same exclusions as D-029: `.media`, `.carousel__viewport`, `.article__hero`; never hero banners, blog-loop thumbnails, the quote block or sidebar imagery. Verified in the browser.
 
+### D-035 · Quote-block left rule is now the Ubuntu pattern
+The 4px flat `--ncba-yellow` rule on `.quote` is replaced by an 8px Ubuntu-pattern strip, matching the strip beside main-column media (D-034).
+
+Drawn as `.quote::after` — an absolutely positioned 8px column — rather than a border, so it layers above the `::before` texture ground. The quote text is inset 40px by the block's own padding plus 56px by `.quote__text`, so the strip never crowds it. `border-left` is now `0`.
+
+### D-036 · John Gachora banner re-rendered from an updated source
+`KV 1 Website Banner John Gachora 1448x234px.png` was **replaced on disk at 14:30**, after `hero-john.jpg` had already been generated from the earlier version at 11:01. Detected by comparing modification times rather than assuming the existing render was current. Re-rendered; mean pixel difference against the new source is **1.07** (JPEG noise only).
+
+Worth noting as a general hazard: the generated `assets/img/**` are derived files. If a source is swapped, the build must be re-run or the site silently keeps serving the old artwork.
+
 ### D-019 · The acceptance grep covers `docs/` too
 Running the checker revealed that `implementation-plan.md`, `decisions.md` and `check.py` all contained the forbidden competitor name **while documenting the rule forbidding it** — which would have failed `grep -ril` over the tree. All three now refer to it only obliquely, and `check.py` assembles the search term from fragments at runtime. Caught by tooling, not by eye; a good argument for writing the checker before the pages.

@@ -246,7 +246,7 @@ The boxed document-link list used for text-only widgets, matching the widget idi
 | Quote text | `--fs-quote` (24px / 400 / 36px) / `#FFFFFF` |
 | Attribution name | `--fs-h5` (14px / 600) / `#FFFFFF` |
 | Attribution role | `--fs-caption` (12px / 400) / `--ncba-cyan-light` |
-| Left rule | 4px `--ncba-yellow`, full height |
+| Left rule | 8px Ubuntu-pattern strip (`.quote::after`, `background-size: 400px`) — replaced the flat yellow bar |
 
 ### 5.4b Ubuntu edge strip
 

@@ -401,12 +401,20 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* --------------------------------------------------------------------------
    10. Quote block
    -------------------------------------------------------------------------- */
+/* The left rule is an 8px Ubuntu-pattern strip rather than the flat yellow
+   bar it replaced (decision D-035), matching the strip beside main-column
+   media. Drawn as ::after so it sits above the ::before texture ground; the
+   quote text is inset well clear of it, so nothing is obscured. */
 .quote {
   position: relative; isolation: isolate; overflow: hidden;
   margin: 0; padding: var(--sp-8) var(--sp-10);
   background: var(--ncba-purple);
-  border-left: 4px solid var(--ncba-yellow);
   border-radius: var(--radius-lg);
+}
+.quote::after {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
+  background-image: url("../img/ubuntu-texture.jpg");
+  background-size: 400px;
 }
 /* .30 is the ceiling that keeps the white quote text at AAA over every pixel
    of the pattern — .35 starts failing (decision D-024). */

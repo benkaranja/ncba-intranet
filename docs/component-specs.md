@@ -199,7 +199,7 @@ Image **940 × 529**. `.media__play` is a 64px circle, `rgba(255,255,255,.92)`, 
 </figure>
 ```
 
-Full width of the main column. Ground `--ncba-purple` with `assets/img/tile/ubuntu-texture.png` as a CSS `background-image` at `opacity:.14` / `background-size:420px` — applied via a `::before` layer so it is decorative and invisible to screen readers. 4px `--ncba-yellow` left rule, `--radius-lg`, padding 32px 40px. Quote `--fs-quote` white; name 14/600 white; role 12/400 `--ncba-cyan`.
+Full width of the main column. Ground `--ncba-purple` with `assets/img/tile/ubuntu-texture.png` as a CSS `background-image` at `opacity:.14` / `background-size:420px` — applied via a `::before` layer so it is decorative and invisible to screen readers. 8px Ubuntu-pattern left strip (`.quote::after`), `--radius-lg`, padding 32px 40px. Quote `--fs-quote` white; name 14/600 white; role 12/400 `--ncba-cyan`.
 
 ---
 
