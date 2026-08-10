@@ -64,7 +64,7 @@ Three slots (the `sidebar-tile` slot was retired in D-042). Every instance of a 
 
 | Slot | Locked size | Ratio | Used by |
 |---|---|---|---|
-| `hero-banner` | **1448 × 234** | 6.19:1 | Page header banner, all 7 pages, full-bleed |
+| `hero-banner` | **1920 × 310** | 6.19:1 | Page header banner, all 7 pages, full-bleed |
 | `media-16x9` | **940 × 529** | 16:9 | Carousel slides, video thumbnails, full-width feature images, article hero |
 | `loop-thumb` | **320 × 180** | 16:9 | Blog-post loop side image (news + video variants) |
 

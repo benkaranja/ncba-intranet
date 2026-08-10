@@ -326,5 +326,14 @@ Two fixes:
 
 The re-extracted logo is 233 x 85 (aspect 2.74). That shifted the aspect enough that the declared `width`/`height` in the markup fell outside the checker's 1% tolerance — **caught by `check.py`, not by eye** — so the header and footer now declare 71x26 and 66x24.
 
+### D-048 · Hero slot re-locked to 1920 x 310
+`KV 3 Website Banner 1920x310px 1.png` -> `index.html` and `...2.png` -> `region-kenya.html`, per instruction. The other five heroes are untouched in source.
+
+**The slot moved from 1448 x 234 to 1920 x 310.** Ratios are 6.188 vs 6.194, a 0.1% difference, so nothing crops either way. The reason for re-locking rather than downscaling the new art:
+
+The hero is **full-bleed**, so at any viewport wider than the image the browser upscales it. At 1448 that was already happening on every common desktop width. Re-locking means index and Kenya now render at native resolution, and the remaining five are pre-upscaled with Lanczos instead of being browser-upscaled at display time — roughly neutral for them, clearly better for the two new banners. Downscaling the new art to 1448 would have discarded resolution that was just supplied and left everything upscaling as before.
+
+The five other heroes are consequently derived from 1448-wide sources at 1920 x 310. If sharper versions of the Gachora or department banners exist at 1920 x 310, dropping them in and re-running the build is all that is needed.
+
 ### D-019 · The acceptance grep covers `docs/` too
 Running the checker revealed that `implementation-plan.md`, `decisions.md` and `check.py` all contained the forbidden competitor name **while documenting the rule forbidding it** — which would have failed `grep -ril` over the tree. All three now refer to it only obliquely, and `check.py` assembles the search term from fragments at runtime. Caught by tooling, not by eye; a good argument for writing the checker before the pages.

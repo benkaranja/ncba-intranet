@@ -38,7 +38,7 @@ kenya-hr.html             Human Resources (L3)
 article.html              Full post view (L4) — hero, byline, body, share, related
 
 assets/css/ncba.css       The single stylesheet. All design tokens live at the top.
-assets/img/hero/          7 banners      — 1448 x 234
+assets/img/hero/          7 banners      — 1920 x 310
 assets/img/media/         12 main-column images — 940 x 529
 assets/img/loop/          20 blog thumbnails    — 320 x 180
 assets/img/tile/          5 sidebar images      — 288 x 162
@@ -128,7 +128,7 @@ It needs Python 3 and Pillow (`pip install pillow`). Without Pillow it still run
 
 | Slot | Locked size | Where |
 |---|---|---|
-| `hero-banner` | 1448 × 234 | page banner, all 7 pages, full-bleed |
+| `hero-banner` | 1920 × 310 | page banner, all 7 pages, full-bleed |
 | `media-16x9` | 940 × 529 | carousel, video thumbnails, feature images, article hero |
 | `loop-thumb` | 320 × 180 | blog-loop side image |
 | `sidebar-tile` | 288 × 162 | sidebar imagery |

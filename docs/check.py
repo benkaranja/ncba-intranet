@@ -30,7 +30,7 @@ DOCS = ["docs/implementation-plan.md", "docs/decisions.md",
 
 # Locked slot dimensions -- docs/component-specs.md §0
 SLOT_DIMS = {
-    "assets/img/hero":  (1448, 234),
+    "assets/img/hero":  (1920, 310),
     "assets/img/media": (940, 529),
     "assets/img/loop":  (320, 180),
 }

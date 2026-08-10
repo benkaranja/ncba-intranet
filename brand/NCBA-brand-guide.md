@@ -298,12 +298,12 @@ Carries the **Ubuntu pattern** behind a purple tint, so the tag reads as an NCBA
 
 | Slot | Locked size | Ratio | Used by | Crop rule |
 |---|---|---|---|---|
-| `hero-banner` | **1448 × 234** | 6.19:1 | Page header banner, all 7 pages — **full-bleed across the viewport** | Centre; photographs anchored 0.18 from top |
+| `hero-banner` | **1920 × 310** | 6.19:1 | Page header banner, all 7 pages — **full-bleed across the viewport** | Centre; photographs anchored 0.18 from top |
 | `media-16x9` | **940 × 529** | 16:9 | Carousel slides · video thumbnails · full-width feature images · article hero | 1920×1080 sources used uncropped |
 | `loop-thumb` | **320 × 180** | 16:9 | Blog-loop side image, news and video variants | 1:1 sources top-anchored |
 | `sidebar-tile` | **288 × 162** | 16:9 | Sidebar widget imagery | 1:1 sources top-anchored |
 
-**Why these numbers:** `hero-banner` is the exact native size of the supplied NCBA intranet banners. Because the banner runs full-bleed across the viewport (not inside the 1300px canvas), rendering at native 1448 × 234 means it is never upscaled at common desktop widths. `media-16x9` is the main column width (940px) at the native 16:9 of the supplied 1920 × 1080 key visuals, so that artwork is never cropped and its headline text is never clipped. `loop-thumb` and `sidebar-tile` hold the same 16:9 so every rounded image on the page shares one shape language.
+**Why these numbers:** `hero-banner` is the exact native size of the supplied NCBA intranet banners. Because the banner runs full-bleed across the viewport (not inside the 1300px canvas), rendering at native 1920 × 310 means it is never upscaled at common desktop widths. `media-16x9` is the main column width (940px) at the native 16:9 of the supplied 1920 × 1080 key visuals, so that artwork is never cropped and its headline text is never clipped. `loop-thumb` and `sidebar-tile` hold the same 16:9 so every rounded image on the page shares one shape language.
 
 Every `<img>` carries explicit `width` and `height` attributes matching its slot, so pages reserve layout space and do not reflow as images decode.
 

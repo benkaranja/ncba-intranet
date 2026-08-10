@@ -11,7 +11,7 @@ Design tokens (`--ncba-magenta`, `--sp-4`, …) are defined in `brand/NCBA-brand
 
 | Slot | CSS class | Locked size | Ratio | Used by | Crop rule |
 |---|---|---|---|---|---|
-| Hero banner | `.hero__img` | **1448 × 234** | 6.19:1 | Page header banner, all 7 pages — **full-bleed** | Centre; photographs anchored 0.18 from top |
+| Hero banner | `.hero__img` | **1920 × 310** | 6.19:1 | Page header banner, all 7 pages — **full-bleed** | Centre; photographs anchored 0.18 from top |
 | Main-column media | `.media__img` | **940 × 529** | 16:9 | Carousel slides · video thumbnails · full-width feature images · article hero | 1920 × 1080 sources uncropped |
 | Loop thumbnail | `.loop__img` | **320 × 180** | 16:9 | Blog-loop side image (news **and** video variants) | 1:1 sources top-anchored |
 | Sidebar tile | `.tile__img` | **288 × 162** | 16:9 | Sidebar widget imagery | 1:1 sources top-anchored |
@@ -126,14 +126,14 @@ Countries all → `region-kenya.html` (only Kenya is built). Active country: `--
 
 ```html
 <section class="hero">
-  <img class="hero__img" src="assets/img/hero/x.jpg" alt="…" width="1448" height="234">
+  <img class="hero__img" src="assets/img/hero/x.jpg" alt="…" width="1920" height="310">
   <div class="hero__flag"></div>                 <!-- Kenya page only -->
   <h1 class="visually-hidden">…</h1>
   <p class="visually-hidden">…</p>
 </section>
 ```
 
-Image **1448 × 234**, no radius, `object-fit: cover`.
+Image **1920 × 310**, no radius, `object-fit: cover`.
 
 **Full-bleed, outside `.canvas`, directly under the nav** (decision D-020), matching the live NCBA intranet. Rendered at the artwork's native size so it is not upscaled at common desktop widths.
 
