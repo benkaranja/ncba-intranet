@@ -3,6 +3,8 @@
 Simplified brand and style guide for the NCBA Group SharePoint intranet redesign.
 **Every value in this document matches `assets/css/ncba.css` exactly.** Where the CSS uses a custom property, the token name is given.
 
+> **Ubuntu pattern:** the supplied artwork carries the pattern baked into its own edges (D-045). In CSS it appears in only two components — the campaign tag and the quote block. Do not add it beside images.
+
 **Version:** 1.0 · **Date:** 2026-08-06
 
 ---
@@ -247,18 +249,6 @@ The boxed document-link list used for text-only widgets, matching the widget idi
 | Attribution name | `--fs-h5` (14px / 600) / `#FFFFFF` |
 | Attribution role | `--fs-caption` (12px / 400) / `--ncba-cyan-light` |
 | Left rule | 8px Ubuntu-pattern strip (`.quote::after`, `background-size: 400px`) — replaced the flat yellow bar |
-
-### 5.4b Ubuntu edge strip
-
-An 8px Ubuntu-pattern strip down the left and right edge of main-column media.
-
-| Property | Value |
-|---|---|
-| Applies to | `.media`, `.carousel__viewport`, `.article__hero` |
-| Strip | `padding-left/right: 8px` + `background-image: url("../img/ubuntu-texture.jpg")`, `background-size: 400px` |
-| Never applies to | hero banners, blog-loop thumbnails, the quote block, sidebar tiles |
-
-The padding places the pattern *beside* the image rather than over it, so no artwork is obscured.
 
 ### 5.5 Video thumbnail
 

@@ -139,7 +139,7 @@ Image **1448 × 234**, no radius, `object-fit: cover`.
 
 **No title bar and no overlaid text** (decision D-028). Every NCBA hero asset carries its own baked-in headline, so any HTML text here duplicates it. The `<h1>` and its sub-line remain in the markup as `visually-hidden` — present for document structure and screen readers, painted nowhere. They must not be deleted outright or the page would have no heading at all.
 
-The hero is the one image slot that does **not** take the Ubuntu edge strip (§6b).
+The Ubuntu pattern is **baked into the supplied artwork's own edges** (D-045); no CSS strip is painted beside any image.
 
 **Kenya variant** inserts `.hero__flag` directly under the image — a 6px full-width band, `linear-gradient(to right, #000 0 33.33%, #BB0000 33.33% 66.66%, #006600 66.66% 100%)`, pure CSS, no image file (decision D-005).
 
@@ -173,23 +173,6 @@ Slides **940 × 529**. Track is `display:flex` with `transform: translateX(-100%
 **The prev/next buttons live inside `.carousel__viewport`**, which is the positioning context. That keeps them vertically centred on the *image* rather than on the image-plus-caption box. 36px circles, `rgba(255,255,255,.9)`, `--shadow-card`.
 
 **JS — the only script in the project.** ~34 lines of vanilla JS inline at the end of `index.html`: index state, prev/next, dot click, caption swap, and `aria-hidden` on non-current slides. No autoplay — it steals focus and is a common accessibility complaint. No dependencies. `prefers-reduced-motion: reduce` drops the transition.
-
----
-
-## 6b. Ubuntu edge strip
-
-An 8px Ubuntu-pattern strip down the left and right edge of main-column media (decisions D-029, D-034).
-
-```css
-.media, .carousel__viewport, .article__hero {
-  padding-left: 8px;
-  padding-right: 8px;
-  background-image: url("../img/ubuntu-texture.jpg");
-  background-size: 400px;
-}
-```
-
-Padding places the pattern *beside* the image, never over it. **Never applied to** hero banners, blog-loop thumbnails, the quote block, or sidebar tiles.
 
 ---
 

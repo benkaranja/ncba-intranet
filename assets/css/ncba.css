@@ -385,18 +385,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* --------------------------------------------------------------------------
    9. Main-column media — locked to 940 x 529
    -------------------------------------------------------------------------- */
-/* 8px Ubuntu-pattern strip down the left and right edge of main-column media
-   and carousels (decisions D-029, D-034). Deliberately NOT applied to hero
-   banners, blog-loop thumbnails, the quote block or sidebar imagery. */
-.ubuntu-edge,
-.media,
-.carousel__viewport,
-.article__hero {
-  padding-left: 8px;
-  padding-right: 8px;
-  background-image: url("../img/ubuntu-texture.jpg");
-  background-size: 400px;
-}
+/* NOTE: the Ubuntu edge strip that used to live here has been REMOVED.
+   The supplied artwork now carries the pattern baked into its own left and
+   right edges (decision D-045), so painting a CSS strip beside the image
+   would double it. The texture survives in exactly two places: the campaign
+   tag (.chip) and the quote block. */
 .media { position: relative; display: block; border-radius: var(--radius-md); overflow: hidden; }
 .media__img { width: 100%; height: auto; }
 .media__play {

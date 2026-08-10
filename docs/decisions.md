@@ -303,5 +303,28 @@ Reported as absent from `region-kenya.html`. **It is there** — in the markup, 
 
 No change made. The likely explanations are that the Kenya quote is different copy from the home-page one and was expected to be identical, or that it was missed on the page. Raised with the client rather than "fixed" by overwriting working content.
 
+### D-045 · Ubuntu texture moved into the artwork; CSS strips removed
+All source images were re-exported with the Ubuntu pattern **baked into their own left and right edges**. The CSS edge strip (D-029/D-034) therefore had to go, or every image would carry the pattern twice.
+
+Removed from `.media`, `.carousel__viewport` and `.article__hero`. The texture now survives in exactly two CSS places, as instructed: the campaign tag (`.chip`) and the quote block (`::before` ground and `::after` left strip). Verified: those three selectors carry neither the padding nor the background-image.
+
+Every image was re-rendered. The department artwork also moved — `2 Monica Kihia.png`, `5 Nelly Wainaina.png` and `15 Louisa Wandabwa 1.png` now exist in the **updated** banners folder and differ from the April copies in `Images/departments/` by a mean of ~29 per pixel, i.e. genuinely different artwork rather than a re-save. Sources repointed per the D-008 precedence rule.
+
+### D-046 · Monica Kihia full-width block after the GMD video
+A full-width `media-16x9` image of `2 Monica Kihia.png` now follows the GMD video on both `index.html` and `region-kenya.html`, with the quote block directly beneath it.
+
+Rendered as a plain `.media` image, **not** a `.media--video`: it is a still, so a play affordance would promise a video that does not exist. It gets no `<h2>` either — the artwork carries its own "HR MISSION 2025" title, and adding one repeats it, the same duplication D-017 and D-028 were raised to avoid.
+
+Home-page order is now: GMD video -> Monica banner -> quote -> carousel -> Ubuntu Spirit video -> news -> help. **This pushes the carousel to fourth**, where an earlier instruction had placed it second. The new placement instruction was relative to the GMD video, so it takes precedence — flagged in case the carousel should move back up.
+
+### D-047 · Logo extraction broke on the new artwork, and now fails loudly
+The re-exported banners carry a bright Ubuntu strip at the right edge. The logo extractor searched for "the brightest pixels in the top-right corner", swallowed that strip, and produced a **36 x 192** sliver instead of the lockup — which the build reported as success.
+
+Two fixes:
+1. The search window now stops at 96.5% of the width, inside the baked strip.
+2. The result is **rejected unless its aspect ratio is between 2.3 and 3.4** (the lockup is ~2.8:1). If nothing qualifies the script says so and leaves the existing logo alone, rather than overwriting it with garbage.
+
+The re-extracted logo is 233 x 85 (aspect 2.74). That shifted the aspect enough that the declared `width`/`height` in the markup fell outside the checker's 1% tolerance — **caught by `check.py`, not by eye** — so the header and footer now declare 71x26 and 66x24.
+
 ### D-019 · The acceptance grep covers `docs/` too
 Running the checker revealed that `implementation-plan.md`, `decisions.md` and `check.py` all contained the forbidden competitor name **while documenting the rule forbidding it** — which would have failed `grep -ril` over the tree. All three now refer to it only obliquely, and `check.py` assembles the search term from fragments at runtime. Caught by tooling, not by eye; a good argument for writing the checker before the pages.
