@@ -271,5 +271,12 @@ The secondary nav previously ran the four countries, a divider, then MCC · Stra
 ### D-039 · Côte d'Ivoire removed
 Dropped from `COUNTRIES`, so it disappears from both the main-nav Region flyout and every secondary nav. Also removed from `implementation-plan.md` and `component-specs.md`; a tree-wide grep for "ivoire|ivory" now returns nothing.
 
+### D-040 · GMD artwork extended to the home-page carousel
+D-037 scoped the new `A MESSAGE FROM THE GMD.png` to the `.media--video` component only, and flagged the home-page carousel slide captioned "A message from the Group Managing Director" as a separate call. Confirmed: it should use the same artwork.
+
+Slide 1 of the index carousel now points at **`video-gmd.jpg`** rather than getting its own render. Generating a `carousel-gmd.jpg` from the same source would have put two byte-identical files in the same slot — the exact duplication D-025 was raised to catch. The now-unused `carousel-gmd.jpg` was deleted and its build job removed; `KV 1 - GMD FIRESIDE CHAT.png` is no longer used anywhere.
+
+Alt text updated from "GMD fireside chat key visual" to "A message from the Group Managing Director" to match what the artwork now says.
+
 ### D-019 · The acceptance grep covers `docs/` too
 Running the checker revealed that `implementation-plan.md`, `decisions.md` and `check.py` all contained the forbidden competitor name **while documenting the rule forbidding it** — which would have failed `grep -ril` over the tree. All three now refer to it only obliquely, and `check.py` assembles the search term from fragments at runtime. Caught by tooling, not by eye; a good argument for writing the checker before the pages.
