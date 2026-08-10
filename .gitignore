@@ -1,0 +1,15 @@
+# Source material — deliberately NOT published.
+#
+# Reference/ holds the original SharePoint exports and `reference image.png`,
+# which is a full screenshot of a competitor's intranet. That file carries the
+# one brand name this entire build was required to keep out of the output, and
+# GitHub Pages is world-readable. It must never be pushed.
+#
+# Images/ is 32 MB of source artwork; everything needed is already processed
+# into assets/img/ at the locked slot dimensions.
+Reference/
+Images/
+
+# macOS
+.DS_Store
+**/.DS_Store

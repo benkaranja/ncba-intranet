@@ -1,0 +1,814 @@
+@charset "UTF-8";
+/* ==========================================================================
+   NCBA Ubuntu Hub — intranet mockup stylesheet
+   Single shared stylesheet. No build step, no framework, no CDN.
+   Token values are documented in brand/NCBA-brand-guide.md and must match it.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand — every hex sampled from the supplied NCBA artwork */
+  --ncba-magenta:      #9F197E;
+  --ncba-magenta-dark: #7C1362;
+  --ncba-magenta-light:#AC3990;
+  --ncba-magenta-tint: #F6E9F2;
+  --ncba-purple:       #230B49;
+  --ncba-purple-deep:  #1E032F;
+  --ncba-cyan:         #5CA5D3;
+  --ncba-cyan-dark:    #3B7FA8;
+  --ncba-cyan-light:   #9BCFEA;
+  --ncba-yellow:       #F2E10E;
+  --ncba-yellow-dark:  #D6C700;
+
+  /* Text */
+  --ink:     #201F1E;
+  --body:    #323130;
+  --muted:   #605E5C;
+  --on-dark: #FFFFFF;
+
+  /* Surface */
+  --surface:     #FFFFFF;
+  --surface-alt: #FAF9F8;
+  --app-bg:      #F3F2F1;
+
+  /* Borders */
+  --line:        #EDEBE9;
+  --line-strong: #D2D0CE;
+
+  /* Type */
+  --font-ui: "Segoe UI", "Segoe UI Web (West European)", -apple-system,
+             BlinkMacSystemFont, "Roboto", "Helvetica Neue", Helvetica,
+             Arial, sans-serif;
+  --fs-h1:      2rem;      /* 32px */
+  --fs-h2:      1.5rem;    /* 24px */
+  --fs-h3:      1.25rem;   /* 20px */
+  --fs-h4:      1rem;      /* 16px */
+  --fs-h5:      .875rem;   /* 14px */
+  --fs-h6:      .75rem;    /* 12px */
+  --fs-body:    .9375rem;  /* 15px */
+  --fs-body-sm: .875rem;   /* 14px */
+  --fs-caption: .75rem;    /* 12px */
+  --fs-nav:     .875rem;   /* 14px */
+  --fs-btn:     .875rem;   /* 14px */
+  --fs-quote:   1.5rem;    /* 24px */
+
+  /* Spacing — 4px base */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
+  --sp-12: 48px; --sp-16: 64px;
+
+  /* Layout */
+  --canvas:    1300px;
+  --col-main:  940px;
+  --col-rail:  320px;
+  --h-suite:   48px;
+  --h-header:  68px;
+  --h-subnav:  44px;
+
+  /* Radii */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  /* Elevation — Fluent depth-4 / depth-16 */
+  --shadow-card:       0 1.6px 3.6px rgba(0,0,0,.132), 0 .3px .9px rgba(0,0,0,.108);
+  --shadow-card-hover: 0 6.4px 14.4px rgba(0,0,0,.132), 0 1.2px 3.6px rgba(0,0,0,.108);
+}
+
+/* --------------------------------------------------------------------------
+   2. Base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--app-bg);
+  color: var(--body);
+  font-family: var(--font-ui);
+  font-size: var(--fs-body);
+  line-height: 22px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 { margin: 0; color: var(--ink); }
+h1 { font-size: var(--fs-h1); font-weight: 600; line-height: 40px; letter-spacing: -.02em; }
+h2 { font-size: var(--fs-h2); font-weight: 600; line-height: 32px; letter-spacing: -.01em; }
+h3 { font-size: var(--fs-h3); font-weight: 600; line-height: 28px; letter-spacing: -.01em; }
+h4 { font-size: var(--fs-h4); font-weight: 600; line-height: 22px; }
+h5 { font-size: var(--fs-h5); font-weight: 600; line-height: 20px; letter-spacing: .01em; }
+h6 { font-size: var(--fs-h6); font-weight: 700; line-height: 16px; letter-spacing: .08em; text-transform: uppercase; }
+
+p { margin: 0 0 var(--sp-4); }
+p:last-child { margin-bottom: 0; }
+
+img { max-width: 100%; display: block; }
+
+a { color: var(--ncba-magenta); text-decoration: none; }
+a:hover { color: var(--ncba-magenta-dark); text-decoration: underline; }
+
+:focus-visible {
+  outline: 2px solid var(--ncba-magenta);
+  outline-offset: 2px;
+}
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--surface); color: var(--ncba-magenta);
+  padding: var(--sp-3) var(--sp-5); font-weight: 600;
+}
+.skip:focus { left: var(--sp-4); top: var(--sp-2); }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. Suite bar
+   -------------------------------------------------------------------------- */
+.suitebar {
+  height: var(--h-suite);
+  background: var(--ncba-purple);
+  color: var(--on-dark);
+  display: flex; align-items: center; gap: var(--sp-4);
+  padding: 0 var(--sp-4);
+}
+.suitebar__waffle {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; flex: 0 0 40px;
+  color: var(--on-dark); border-radius: var(--radius-sm);
+}
+.suitebar__waffle:hover { background: rgba(255,255,255,.12); }
+.suitebar__app {
+  font-size: var(--fs-h5); font-weight: 600; color: var(--on-dark);
+  white-space: nowrap;
+}
+.suitebar__app:hover { color: var(--on-dark); text-decoration: none; }
+.suitebar__search {
+  flex: 1 1 auto; max-width: 468px; margin: 0 auto;
+  position: relative; display: flex; align-items: center;
+}
+.suitebar__search svg {
+  position: absolute; left: 10px; width: 16px; height: 16px;
+  color: var(--muted); pointer-events: none;
+}
+.suitebar__search input {
+  width: 100%; height: 32px;
+  padding: 0 var(--sp-3) 0 32px;
+  border: 0; border-radius: var(--radius-md);
+  background: rgba(255,255,255,.94);
+  font-family: inherit; font-size: var(--fs-body-sm); color: var(--body);
+}
+.suitebar__right { display: flex; align-items: center; gap: var(--sp-1); margin-left: auto; }
+.suitebar__icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; color: var(--on-dark); border-radius: var(--radius-sm);
+}
+.suitebar__icon:hover { background: rgba(255,255,255,.12); color: var(--on-dark); }
+.suitebar__avatar {
+  width: 32px; height: 32px; flex: 0 0 32px; margin-left: var(--sp-2);
+  border-radius: 50%; background: rgba(255,255,255,.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-h6); font-weight: 600; color: var(--on-dark);
+}
+
+/* --------------------------------------------------------------------------
+   4. Site header + main nav
+   -------------------------------------------------------------------------- */
+.sitehead {
+  min-height: var(--h-header);
+  background: var(--ncba-magenta);
+  display: flex; align-items: stretch; gap: var(--sp-6);
+  padding: 0 var(--sp-6);
+}
+.sitehead__brand {
+  display: flex; align-items: center; gap: var(--sp-3);
+  flex: 0 0 auto; color: var(--on-dark);
+}
+.sitehead__brand:hover { color: var(--on-dark); text-decoration: none; }
+.sitehead__brand img { height: 26px; width: auto; }
+.sitehead__title {
+  font-size: var(--fs-h4); font-weight: 600; white-space: nowrap;
+  padding-left: var(--sp-3); border-left: 1px solid rgba(255,255,255,.34);
+}
+
+.sitehead__nav { display: flex; align-items: stretch; overflow: visible; }
+.sitehead__nav > ul { display: flex; align-items: stretch; }
+.sitehead__nav li { display: flex; align-items: stretch; position: relative; }
+.sitehead__nav a {
+  display: flex; align-items: center; gap: var(--sp-1);
+  padding: 0 var(--sp-3);
+  font-size: var(--fs-nav); font-weight: 600; line-height: 20px;
+  color: rgba(255,255,255,.92); white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+.sitehead__nav a:hover {
+  color: var(--on-dark); background: rgba(255,255,255,.12); text-decoration: none;
+}
+.sitehead__nav a.is-active {
+  color: var(--on-dark); font-weight: 700;
+  border-bottom-color: var(--ncba-yellow);
+}
+.sitehead__nav .caret { width: 10px; height: 10px; flex: 0 0 10px; }
+
+/* Region dropdown — CSS only, no JS */
+.menu {
+  position: absolute; top: 100%; left: 0; z-index: 40;
+  min-width: 220px; padding: var(--sp-2) 0;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card-hover);
+  display: none;
+}
+.has-menu:hover > .menu,
+.has-menu:focus-within > .menu { display: block; }
+.menu li { display: block; }
+.menu a {
+  display: flex; align-items: center; height: 36px;
+  padding: 0 var(--sp-4);
+  color: var(--body); font-weight: 400; border-bottom: 0;
+}
+.menu a:hover { background: var(--surface-alt); color: var(--ncba-magenta); }
+
+/* --------------------------------------------------------------------------
+   5. Secondary nav (L2 / L3 pages)
+   -------------------------------------------------------------------------- */
+.subnav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.subnav__inner {
+  max-width: calc(var(--canvas) + var(--sp-6) * 2);
+  margin: 0 auto; padding: 0 var(--sp-6);
+  height: var(--h-subnav);
+  display: flex; align-items: center; gap: var(--sp-1);
+  overflow-x: auto;
+}
+.subnav a {
+  display: flex; align-items: center; height: var(--h-subnav);
+  padding: 0 var(--sp-3);
+  font-size: var(--fs-nav); font-weight: 600; color: var(--body);
+  white-space: nowrap; border-bottom: 2px solid transparent;
+}
+.subnav a:hover { color: var(--ncba-magenta); text-decoration: none; }
+.subnav a.is-active {
+  color: var(--ncba-magenta); font-weight: 700;
+  border-bottom-color: var(--ncba-magenta);
+}
+.subnav__sep {
+  flex: 0 0 1px; height: 20px; margin: 0 var(--sp-3);
+  background: var(--line-strong);
+}
+
+/* --------------------------------------------------------------------------
+   6. Canvas + grid
+   -------------------------------------------------------------------------- */
+.canvas {
+  max-width: calc(var(--canvas) + var(--sp-6) * 2);
+  margin: 0 auto;
+  padding: var(--sp-8) var(--sp-6) var(--sp-16);
+  background: var(--surface);
+}
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, var(--col-main)) var(--col-rail);
+  gap: var(--sp-10);
+  align-items: start;
+}
+.col-main { min-width: 0; }
+.col-rail { display: flex; flex-direction: column; gap: var(--sp-6); }
+
+.section { margin-bottom: var(--sp-12); }
+.section:last-child { margin-bottom: 0; }
+.section__head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--sp-4); margin-bottom: var(--sp-6);
+  padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line);
+}
+.section__all { font-size: var(--fs-body-sm); font-weight: 600; }
+.eyebrow {
+  font-size: var(--fs-h6); font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--ncba-magenta);
+  margin-bottom: var(--sp-2);
+}
+.lede { font-size: 1.0625rem; line-height: 26px; color: var(--body); }
+
+/* --------------------------------------------------------------------------
+   7. Hero banner — image locked to 1300 x 210
+   -------------------------------------------------------------------------- */
+/* Full-bleed across the whole viewport, directly under the nav, matching the
+   live NCBA intranet (D-020). Rendered at native 1448 x 234 so it is not
+   upscaled at common desktop widths. No title bar and no overlaid text — the
+   artwork carries its own headline (D-028); the <h1> is visually hidden. */
+.hero { margin-bottom: var(--sp-8); }
+.hero__img {
+  width: 100%; height: auto;
+  display: block;
+  object-fit: cover;
+}
+/* Kenya variant: flag rendered in CSS — no image file (decision D-005) */
+.hero__flag {
+  height: 6px;
+  background: linear-gradient(to right,
+    #000000 0 33.33%, #BB0000 33.33% 66.66%, #006600 66.66% 100%);
+}
+
+/* --------------------------------------------------------------------------
+   8. Carousel — slides locked to 940 x 529
+   -------------------------------------------------------------------------- */
+/* Caption sits below the viewport, never over the artwork (decision D-017).
+   Buttons are anchored inside the viewport so they stay centred on the
+   image regardless of how tall the caption text runs. */
+.carousel { margin-bottom: var(--sp-4); }
+.carousel__viewport {
+  position: relative;
+  overflow: hidden; border-radius: var(--radius-md);
+}
+.carousel__track {
+  display: flex;
+  transition: transform .4s cubic-bezier(.25,.8,.25,1);
+}
+.carousel__slide { flex: 0 0 100%; margin: 0; min-width: 0; }
+.carousel__slide img { width: 100%; height: auto; display: block; }
+.carousel__cap { padding: var(--sp-4) 0 0; min-height: 76px; }
+.carousel__cap h3 { margin-bottom: var(--sp-1); }
+.carousel__cap p { margin: 0; font-size: var(--fs-body-sm); color: var(--muted); max-width: 72ch; }
+.carousel__btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; border: 0; border-radius: 50%;
+  background: rgba(255,255,255,.9); color: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; box-shadow: var(--shadow-card);
+}
+.carousel__btn:hover { background: #fff; }
+.carousel__btn--prev { left: var(--sp-3); }
+.carousel__btn--next { right: var(--sp-3); }
+.carousel__dots {
+  display: flex; align-items: center; justify-content: center;
+  gap: var(--sp-2); margin-top: var(--sp-3);
+}
+.carousel__dot {
+  width: 10px; height: 10px; padding: 0; border: 0; border-radius: 50%;
+  background: var(--line-strong); cursor: pointer;
+}
+.carousel__dot.is-current { background: var(--ncba-magenta); }
+
+/* --------------------------------------------------------------------------
+   9. Main-column media — locked to 940 x 529
+   -------------------------------------------------------------------------- */
+/* 8px Ubuntu-pattern strip down the left and right edge of main-column media
+   and carousels (decisions D-029, D-034). Deliberately NOT applied to hero
+   banners, blog-loop thumbnails, the quote block or sidebar imagery. */
+.ubuntu-edge,
+.media,
+.carousel__viewport,
+.article__hero {
+  padding-left: 8px;
+  padding-right: 8px;
+  background-image: url("../img/ubuntu-texture.jpg");
+  background-size: 400px;
+}
+.media { position: relative; display: block; border-radius: var(--radius-md); overflow: hidden; }
+.media__img { width: 100%; height: auto; }
+.media__play {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(255,255,255,.92);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .18s ease, background .18s ease;
+}
+.media__play::after {
+  content: "";
+  border-style: solid;
+  border-width: 11px 0 11px 19px;
+  border-color: transparent transparent transparent var(--ncba-magenta);
+  margin-left: 4px;
+}
+.media:hover .media__play { background: #fff; transform: translate(-50%,-50%) scale(1.06); }
+.media__cap {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-caption); line-height: 16px; color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   10. Quote block
+   -------------------------------------------------------------------------- */
+.quote {
+  position: relative; isolation: isolate; overflow: hidden;
+  margin: 0; padding: var(--sp-8) var(--sp-10);
+  background: var(--ncba-purple);
+  border-left: 4px solid var(--ncba-yellow);
+  border-radius: var(--radius-lg);
+}
+/* .30 is the ceiling that keeps the white quote text at AAA over every pixel
+   of the pattern — .35 starts failing (decision D-024). */
+.quote::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background-image: url("../img/ubuntu-texture.jpg");
+  background-size: 420px;
+  opacity: .30;
+}
+.quote__text {
+  margin: 0; position: relative; padding-left: 56px;
+  font-size: var(--fs-quote); font-weight: 400; line-height: 36px;
+  letter-spacing: -.01em; color: var(--on-dark);
+}
+.quote__text::before {
+  content: "\201C";
+  position: absolute; left: 0; top: -18px;
+  font-size: 72px; line-height: 1; color: var(--ncba-cyan); opacity: .55;
+}
+.quote__by { margin-top: var(--sp-5); padding-left: 56px; }
+.quote__name { display: block; font-size: var(--fs-h5); font-weight: 600; color: var(--on-dark); }
+/* Lightened from --ncba-cyan: over the denser pattern the standard cyan fell
+   to 2.9:1. This tint holds 4.6:1 (AA) on every pixel (decision D-024). */
+.quote__role { display: block; font-size: var(--fs-caption); line-height: 16px; color: var(--ncba-cyan-light); }
+
+/* --------------------------------------------------------------------------
+   11. Blog-post loop — thumbnails locked to 320 x 180
+   -------------------------------------------------------------------------- */
+.loop__item {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--sp-6);
+  padding-bottom: var(--sp-6);
+  margin-bottom: var(--sp-6);
+  border-bottom: 1px solid var(--line);
+}
+.loop__item:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+.loop__media {
+  position: relative; display: block;
+  border-radius: var(--radius-md); overflow: hidden;
+}
+.loop__img { width: 100%; height: auto; object-fit: cover; }
+.loop__item--video .media__play { width: 40px; height: 40px; }
+.loop__item--video .media__play::after { border-width: 7px 0 7px 12px; margin-left: 3px; }
+.loop__media:hover .media__play { background: #fff; transform: translate(-50%,-50%) scale(1.06); }
+.loop__body { min-width: 0; align-self: center; }
+.loop__title { margin: var(--sp-2) 0 var(--sp-2); }
+.loop__title a { color: var(--ink); }
+.loop__title a:hover { color: var(--ncba-magenta); text-decoration: none; }
+.loop__excerpt {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-body-sm); line-height: 20px; color: var(--muted);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.loop__more { font-size: var(--fs-body-sm); font-weight: 600; }
+.loop__more span { margin-left: var(--sp-1); }
+.loop__meta {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-caption); line-height: 16px; color: var(--muted);
+}
+
+/* Campaign tag. The Ubuntu pattern reads through a light purple tint
+   (decisions D-021, D-030). At .55 the pattern is clearly legible as a
+   pattern; white text holds AA but no longer AAA — see the brand guide. */
+.chip {
+  display: inline-block;
+  padding: 4px var(--sp-2);
+  border-radius: var(--radius-sm);
+  background-image:
+    linear-gradient(rgba(35,11,73,.55), rgba(35,11,73,.55)),
+    url("../img/ubuntu-texture.jpg");
+  background-size: auto, 200px;
+  background-position: center, center;
+  background-color: var(--ncba-purple);
+  color: var(--on-dark);
+  font-size: 11px; font-weight: 700; line-height: 14px;
+  letter-spacing: .06em; text-transform: uppercase;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.14);
+}
+
+/* --------------------------------------------------------------------------
+   12. Buttons
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  min-height: 32px; padding: var(--sp-2) var(--sp-5);
+  border: 1px solid transparent; border-radius: var(--radius-sm);
+  font-family: inherit; font-size: var(--fs-btn); font-weight: 600;
+  line-height: 20px; letter-spacing: .01em;
+  cursor: pointer; text-decoration: none;
+}
+.btn:hover { text-decoration: none; }
+.btn--primary { background: var(--ncba-magenta); color: var(--on-dark); }
+.btn--primary:hover { background: var(--ncba-magenta-dark); color: var(--on-dark); }
+.btn--cta { background: var(--ncba-yellow); color: var(--ink); }
+.btn--cta:hover { background: var(--ncba-yellow-dark); color: var(--ink); }
+.btn--secondary {
+  background: transparent; color: var(--ncba-magenta);
+  border-color: var(--ncba-magenta);
+}
+.btn--secondary:hover { background: var(--ncba-magenta-tint); color: var(--ncba-magenta-dark); }
+
+/* --------------------------------------------------------------------------
+   13. Sidebar widgets — rail is 320px
+   -------------------------------------------------------------------------- */
+/* SharePoint web parts are flat: a title in the page's own type, then the
+   content, with the card border carrying the grouping (decision D-022). */
+.widget {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--sp-4);
+}
+.widget__head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--sp-3); margin-bottom: var(--sp-3);
+}
+.widget__title { margin: 0 0 var(--sp-3); }
+.widget__head .widget__title { margin: 0; }
+.widget__all { font-size: var(--fs-caption); font-weight: 600; white-space: nowrap; }
+
+/* 13.1 Quick Links — SharePoint "Button" layout (ButtonCard).
+   Values taken from Test Site - Sidebar Quick links.html: 22px icon at 12px
+   margins, 14px/400 label, 1px border, 4px radius, 40px min content height. */
+.qlinks { display: flex; flex-direction: column; gap: var(--sp-3); }
+.qlinks a {
+  display: flex; align-items: center;
+  width: 100%; box-sizing: border-box;
+  min-height: 60px;
+  background: var(--ncba-magenta);
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: var(--radius-md);
+  color: var(--on-dark);
+  font-size: var(--fs-h5); font-weight: 400; line-height: 20px;
+}
+/* SharePoint's ButtonCard LIGHTENS on hover — its own rule is
+   `.root-258:hover { background-color: rgb(121,89,165) }`, a lighter tint of
+   the theme colour, not a darker one. Matching that direction (decision D-027).
+   White label holds 5.61:1, effectively identical to the native 5.55:1. */
+.qlinks a:hover {
+  background: var(--ncba-magenta-light); color: var(--on-dark); text-decoration: none;
+}
+.qlinks__icon {
+  flex: 0 0 22px; width: 22px; height: 22px;
+  margin: 0 12px; align-self: center; color: var(--on-dark);
+  display: flex; align-items: center; justify-content: center;
+}
+.qlinks__icon svg { width: 22px; height: 22px; }
+.qlinks__label {
+  margin: 10px 0; padding-right: 14px; min-width: 0;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 13.1b Resource links — the boxed document-link list from the reference
+   layout's right rail. */
+.reslinks { display: flex; flex-direction: column; gap: var(--sp-2); }
+.reslinks a {
+  display: flex; align-items: center; gap: var(--sp-3);
+  min-height: 40px; padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--line); border-radius: var(--radius-md);
+  background: var(--surface);
+  font-size: var(--fs-body-sm); font-weight: 400; color: var(--body);
+}
+.reslinks a:hover {
+  border-color: var(--ncba-magenta); color: var(--ncba-magenta);
+  background: var(--ncba-magenta-tint); text-decoration: none;
+}
+.reslinks__icon { flex: 0 0 16px; width: 16px; height: 16px; color: var(--ncba-magenta); }
+.reslinks__icon svg { width: 16px; height: 16px; display: block; }
+
+/* 13.2 Link tile — image locked to 288 x 162 */
+.tile {
+  display: block; color: var(--body);
+  border: 1px solid var(--line); border-radius: var(--radius-md);
+  padding: var(--sp-3); background: var(--surface);
+}
+.tile:hover { text-decoration: none; border-color: var(--ncba-magenta); }
+.tile__img {
+  width: 100%; height: auto;
+  border-radius: var(--radius-md); margin-bottom: var(--sp-3);
+}
+.tile__title {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2);
+  font-size: var(--fs-h5); font-weight: 600; color: var(--ink);
+}
+.tile:hover .tile__title { color: var(--ncba-magenta); }
+.tile__arrow { color: var(--ncba-magenta); flex: 0 0 auto; }
+.tile__desc {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-caption); line-height: 16px; color: var(--muted);
+}
+
+/* 13.3 Events */
+.events li { display: flex; gap: var(--sp-3); padding: var(--sp-3) 0; }
+.events li + li { border-top: 1px solid var(--line); }
+.events__date {
+  flex: 0 0 48px; width: 48px; height: 48px;
+  border-radius: var(--radius-md); background: var(--ncba-magenta-tint);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.events__mon {
+  font-size: 10px; font-weight: 700; line-height: 12px;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--ncba-magenta);
+}
+.events__day { font-size: 18px; font-weight: 700; line-height: 20px; color: var(--ink); }
+.events__body { min-width: 0; }
+.events__title { font-size: var(--fs-h5); font-weight: 600; color: var(--ink); display: block; }
+a.events__title:hover { color: var(--ncba-magenta); text-decoration: none; }
+.events__when { font-size: var(--fs-caption); line-height: 16px; color: var(--muted); }
+
+/* 13.4 Staff updates feed — Viva Engage style card, matching the widget
+   pattern in Reference/index.html (decision D-022). */
+.feed { display: flex; flex-direction: column; gap: var(--sp-3); }
+.feed__item {
+  border: 1px solid var(--line); border-radius: var(--radius-md);
+  padding: var(--sp-3); background: var(--surface);
+}
+.feed__head { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-2); }
+.feed__avatar {
+  flex: 0 0 32px; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--ncba-magenta-tint); color: var(--ncba-magenta);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-h6); font-weight: 700;
+}
+.feed__who { min-width: 0; flex: 1 1 auto; }
+.feed__author { display: block; font-size: 13px; font-weight: 600; color: var(--ink); }
+.feed__meta { font-size: var(--fs-caption); line-height: 16px; color: var(--muted); }
+.feed__badge {
+  flex: 0 0 auto; padding: 2px var(--sp-2); border-radius: var(--radius-sm);
+  background: var(--ncba-magenta-tint); color: var(--ncba-magenta);
+  font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+}
+.feed__text {
+  margin: 0; font-size: 13px; line-height: 18px; color: var(--body);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.feed__tag { display: inline-block; margin-top: var(--sp-2); font-size: 13px; font-weight: 600; }
+.feed__views { display: block; margin-top: var(--sp-1); font-size: var(--fs-caption); color: var(--muted); }
+.feed__comment {
+  width: 100%; margin-top: var(--sp-2); height: 32px; padding: 0 var(--sp-3);
+  border: 1px solid var(--line-strong); border-radius: 16px;
+  background: var(--surface-alt);
+  font-family: inherit; font-size: var(--fs-caption); color: var(--body);
+}
+
+/* --------------------------------------------------------------------------
+   14. We're here to help
+   -------------------------------------------------------------------------- */
+.help__grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4);
+}
+.help__card {
+  background: var(--surface-alt);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--sp-4);
+}
+.help__icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--ncba-magenta); color: var(--on-dark);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: var(--sp-3);
+}
+.help__icon svg { width: 16px; height: 16px; }
+.help__team { font-size: var(--fs-h5); font-weight: 600; color: var(--ink); }
+.help__addr {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-caption); line-height: 16px; color: var(--muted);
+  word-break: break-word;
+}
+
+/* --------------------------------------------------------------------------
+   15. Footer
+   -------------------------------------------------------------------------- */
+.sitefoot { background: var(--ncba-magenta); color: var(--on-dark); }
+.sitefoot__inner {
+  max-width: calc(var(--canvas) + var(--sp-6) * 2);
+  margin: 0 auto; padding: 0 var(--sp-6);
+  min-height: 64px;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-6);
+}
+.sitefoot__brand img { height: 24px; width: auto; }
+.sitefoot__social { display: flex; align-items: center; gap: var(--sp-6); }
+.sitefoot__social a {
+  font-size: 13px; font-weight: 600; line-height: 18px; color: var(--on-dark);
+}
+.sitefoot__social a:hover { color: var(--on-dark); text-decoration: underline; }
+
+/* --------------------------------------------------------------------------
+   16. Article page
+   -------------------------------------------------------------------------- */
+.article__hero { border-radius: var(--radius-md); overflow: hidden; margin-bottom: var(--sp-6); }
+.article__hero img { width: 100%; height: auto; }
+.article__title { margin-bottom: var(--sp-4); }
+.article__by { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-6); }
+.article__avatar {
+  flex: 0 0 32px; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--ncba-magenta-tint); color: var(--ncba-magenta);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-h6); font-weight: 700;
+}
+.article__author { font-size: var(--fs-h5); font-weight: 600; color: var(--ink); display: block; }
+.article__date { font-size: var(--fs-caption); line-height: 16px; color: var(--muted); }
+.article__body { max-width: 68ch; }
+.article__body h2 { margin: var(--sp-8) 0 var(--sp-3); }
+.article__body h3 { margin: var(--sp-6) 0 var(--sp-2); }
+.pullquote {
+  margin: var(--sp-6) 0; padding-left: var(--sp-5);
+  border-left: 3px solid var(--ncba-magenta);
+  font-size: 1.25rem; line-height: 30px; font-style: italic; color: var(--ink);
+}
+.share {
+  display: flex; align-items: center; gap: var(--sp-3);
+  margin: var(--sp-8) 0; padding-top: var(--sp-6);
+  border-top: 1px solid var(--line);
+}
+.share__label { font-size: var(--fs-h5); font-weight: 600; color: var(--ink); margin-right: var(--sp-1); }
+.related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+.related__card {
+  display: block; border: 1px solid var(--line); border-radius: var(--radius-md);
+  overflow: hidden; background: var(--surface); box-shadow: var(--shadow-card);
+}
+.related__card:hover { box-shadow: var(--shadow-card-hover); text-decoration: none; }
+.related__card img { width: 100%; height: auto; }
+.related__text { display: block; padding: var(--sp-3) var(--sp-4) var(--sp-4); }
+/* Both are spans in the markup, so they must be made block-level or the
+   description flows inline straight after the title. */
+.related__title {
+  display: block;
+  font-size: var(--fs-h5); font-weight: 600; line-height: 20px; color: var(--ink);
+}
+.related__card:hover .related__title { color: var(--ncba-magenta); }
+.related__desc {
+  display: block; margin: var(--sp-1) 0 0;
+  font-size: var(--fs-caption); line-height: 16px; color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   17. Department document tiles (L3 pages)
+   -------------------------------------------------------------------------- */
+.doctiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+.doctile {
+  display: flex; align-items: center; gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-card);
+  font-size: var(--fs-h5); font-weight: 600; color: var(--body);
+}
+.doctile:hover { box-shadow: var(--shadow-card-hover); color: var(--ncba-magenta); text-decoration: none; }
+.doctile__icon {
+  flex: 0 0 32px; width: 32px; height: 32px; border-radius: var(--radius-md);
+  background: var(--ncba-magenta-tint); color: var(--ncba-magenta);
+  display: flex; align-items: center; justify-content: center;
+}
+.doctile__icon svg { width: 18px; height: 18px; }
+
+/* --------------------------------------------------------------------------
+   18. Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .sitehead { flex-wrap: wrap; padding-bottom: 0; }
+  .sitehead__nav { width: 100%; overflow-x: auto; }
+}
+
+@media (max-width: 1023px) {
+  .grid { grid-template-columns: minmax(0, 1fr); gap: var(--sp-8); }
+  .col-rail { flex-direction: row; flex-wrap: wrap; }
+  .col-rail > .widget { flex: 1 1 300px; }
+  .help__grid { grid-template-columns: repeat(2, 1fr); }
+  .doctiles { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 719px) {
+  .canvas { padding: var(--sp-5) var(--sp-4) var(--sp-10); }
+  .sitehead { padding: 0 var(--sp-4); }
+  .subnav__inner { padding: 0 var(--sp-4); }
+  .sitefoot__inner { flex-direction: column; justify-content: center; padding: var(--sp-4); }
+
+  .hero__img { aspect-ratio: 16 / 9; object-fit: cover; object-position: center; }
+  h1 { font-size: 1.5rem; line-height: 32px; }
+
+  .loop__item { grid-template-columns: minmax(0, 1fr); gap: var(--sp-3); }
+  .loop__img { aspect-ratio: 16 / 9; }
+
+  .carousel__cap { min-height: 0; }
+  .carousel__btn--prev { left: var(--sp-1); }
+  .carousel__btn--next { right: var(--sp-1); }
+
+  .quote { padding: var(--sp-6) var(--sp-5); }
+  .quote__text { padding-left: 0; padding-top: var(--sp-6); font-size: 1.25rem; line-height: 30px; }
+  .quote__text::before { top: -8px; font-size: 56px; }
+  .quote__by { padding-left: 0; }
+
+  .help__grid { grid-template-columns: minmax(0, 1fr); }
+  .doctiles { grid-template-columns: minmax(0, 1fr); }
+  .related__grid { grid-template-columns: minmax(0, 1fr); }
+  .col-rail > .widget { flex: 1 1 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel__track { transition: none; }
+  .media__play { transition: none; }
+}
