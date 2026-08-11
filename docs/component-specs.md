@@ -327,6 +327,46 @@ Addresses are **plain text, not `mailto:` links** (decision D-015).
 
 ---
 
+## 11b. Ask-the-GMD composer — `.askbox`
+
+Sits under the intro body copy on `connect-with-john.html`. Reads as a native SharePoint / Viva composer.
+
+```html
+<div class="askbox">
+  <div class="askbox__head">
+    <span class="askbox__avatar">NK</span>
+    <span class="askbox__who">
+      <span class="askbox__title">Ask John a question</span>
+      <span class="askbox__meta">Goes to the Office of the Group Managing Director</span>
+    </span>
+  </div>
+  <label class="visually-hidden" for="askq">Your question for the GMD</label>
+  <textarea class="askbox__input" id="askq" rows="3" placeholder="…"></textarea>
+  <div class="askbox__foot">
+    <label class="askbox__check"><input type="checkbox" id="askanon"> Ask anonymously</label>
+    <span class="askbox__actions">
+      <button class="btn btn--secondary" type="button">Save draft</button>
+      <button class="btn btn--primary" type="button">Submit question</button>
+    </span>
+  </div>
+  <p class="askbox__note">…</p>
+</div>
+```
+
+| Property | Value |
+|---|---|
+| Card | `--surface`, `1px solid --line`, `--radius-md`, `--shadow-card`, padding `--sp-4` |
+| Avatar | 40px circle, `--ncba-magenta` on white, 14px/700 |
+| Textarea | `--surface-alt` fill, `1px solid --line-strong`, `--radius-md`, min-height 88px, vertical resize |
+| Focus | `2px solid --ncba-magenta`, fill lightens to `--surface` |
+| Checkbox | 16px, `accent-color: --ncba-magenta` |
+| Actions | right-aligned; secondary "Save draft" + primary "Submit question" |
+| < 720px | footer stacks, actions right-aligned |
+
+**No `<form>`, and every button is `type="button"`** (decision D-052). The mockup must not be able to submit anything. A SharePoint implementer would replace this with a Microsoft Forms web part or a Power Apps form.
+
+---
+
 ## 12. Footer — `.sitefoot`
 
 Rebuilt from `Reference/ncba colours.png` (decision D-006). Full-bleed `--ncba-magenta` bar, 64px tall, inner content constrained to 1300px. White NCBA logo left; LinkedIn · Facebook · Instagram right at 13px/600 white, 24px apart, underline on hover. Social links → `#main`.

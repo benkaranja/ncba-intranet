@@ -353,5 +353,26 @@ Every application of the short quote banner was removed — it appeared on `inde
 
 Home page is now: GMD video -> Monica HR banner -> carousel -> Ubuntu Spirit video -> news -> help. Kenya: GMD video -> Monica HR banner -> news -> help.
 
+### D-051 · Monica Kihia quote banner on Group and Region only
+`2 Monica Kihia QUOTE.png` (1920 x 1080, native 16:9, uncropped) replaces the plain HR banner on `index.html` and `region-kenya.html`. The artwork carries her full message as set type, so it restores in image form what D-050 removed as a text block.
+
+`kenya-hr.html` keeps the original `2 Monica Kihia.png`, as specified — the department page wants the HR Mission key visual, not the quote. The `loop-monica` news thumbnails on `kenya-hr.html` and `article.html` also stay on the original: they are thumbnails, not banners, and a page of set type does not survive being shrunk to 320 x 180.
+
+Rendered as a second media asset (`feature-monica-quote.jpg`) rather than repointing the existing one, because both artworks are still in use.
+
+**Spelling note:** the artwork reads **"Monicah Kihia"**. The brief and all body copy use "Monica Kihia". The alt text and caption on these two banners follow the artwork; everything else is unchanged. Worth a decision if it matters — it is visible to anyone reading the banner.
+
+### D-052 · Ask-the-GMD composer
+An input widget now sits under the body copy of the "Ask the question you actually want answered" section on `connect-with-john.html`, styled as a native SharePoint / Viva composer: avatar-led header, soft-filled textarea, "Ask anonymously" checkbox, Save draft and Submit question actions, and a note on what happens to submissions.
+
+**It is deliberately inert, and built so it cannot be otherwise:**
+- **no `<form>` element** anywhere on the page
+- every button is **`type="button"`**, so no implicit submission
+- no `action`, no `method`, no handler
+
+This is a static pitch mockup; a working form would need somewhere to send data, and nothing here should transmit anything. Verified in the browser: the widget is not inside a form and both buttons report `type="button"`.
+
+Accessibility: the textarea carries a `visually-hidden` `<label for="askq">`, so the control is named without adding visible chrome the design does not want.
+
 ### D-019 · The acceptance grep covers `docs/` too
 Running the checker revealed that `implementation-plan.md`, `decisions.md` and `check.py` all contained the forbidden competitor name **while documenting the rule forbidding it** — which would have failed `grep -ril` over the tree. All three now refer to it only obliquely, and `check.py` assembles the search term from fragments at runtime. Caught by tooling, not by eye; a good argument for writing the checker before the pages.

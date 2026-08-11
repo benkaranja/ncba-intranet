@@ -634,6 +634,62 @@ a.events__title:hover { color: var(--ncba-magenta); text-decoration: none; }
 }
 
 /* --------------------------------------------------------------------------
+   13b. Ask-the-GMD composer — .askbox
+   Styled as a native SharePoint / Viva composer: flat card, avatar-led
+   header, soft-filled textarea, actions right-aligned. Deliberately NOT a
+   <form> and every button is type="button" — nothing is submittable, this
+   is a static mockup (decision D-052).
+   -------------------------------------------------------------------------- */
+.askbox {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-4);
+}
+.askbox__head { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-3); }
+.askbox__avatar {
+  flex: 0 0 40px; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--ncba-magenta); color: var(--on-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-h5); font-weight: 700;
+}
+.askbox__who { min-width: 0; }
+.askbox__title { display: block; font-size: var(--fs-h4); font-weight: 600; color: var(--ink); }
+.askbox__meta { display: block; font-size: var(--fs-caption); line-height: 16px; color: var(--muted); }
+.askbox__input {
+  display: block; width: 100%;
+  padding: var(--sp-3);
+  border: 1px solid var(--line-strong); border-radius: var(--radius-md);
+  background: var(--surface-alt);
+  font-family: inherit; font-size: var(--fs-body); line-height: 22px; color: var(--body);
+  resize: vertical; min-height: 88px;
+}
+.askbox__input::placeholder { color: var(--muted); }
+.askbox__input:focus {
+  outline: 2px solid var(--ncba-magenta); outline-offset: 1px;
+  background: var(--surface); border-color: var(--ncba-magenta);
+}
+.askbox__foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--sp-4); flex-wrap: wrap; margin-top: var(--sp-3);
+}
+.askbox__check {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  font-size: var(--fs-body-sm); color: var(--body); cursor: pointer;
+}
+.askbox__check input { width: 16px; height: 16px; accent-color: var(--ncba-magenta); cursor: pointer; }
+.askbox__actions { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.askbox__note {
+  margin: var(--sp-3) 0 0;
+  font-size: var(--fs-caption); line-height: 16px; color: var(--muted);
+}
+@media (max-width: 719px) {
+  .askbox__foot { flex-direction: column; align-items: stretch; }
+  .askbox__actions { justify-content: flex-end; }
+}
+
+/* --------------------------------------------------------------------------
    14. We're here to help
    -------------------------------------------------------------------------- */
 .help__grid {
