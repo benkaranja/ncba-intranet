@@ -335,5 +335,23 @@ The hero is **full-bleed**, so at any viewport wider than the image the browser 
 
 The five other heroes are consequently derived from 1448-wide sources at 1920 x 310. If sharper versions of the Gachora or department banners exist at 1920 x 310, dropping them in and re-running the build is all that is needed.
 
+### D-049 · Department artwork refreshed again
+`2 Monica Kihia.png`, `5 Nelly Wainaina.png` and `15 Louisa Wandabwa 1.png` were re-exported at 13:53 on 2026-08-11, after the generated copies were built at 18:31 the previous evening. Re-rendered — both the `media` feature images and the `loop` thumbnails.
+
+Worth noting how this was caught: comparing modification times **across the date boundary**. A same-day comparison would have read 13:53 as older than 18:31 and concluded nothing had changed.
+
+The Monica HR message now appears in four places, all refreshed: the full-width banner on `index.html` and `region-kenya.html`, the feature image on `kenya-hr.html`, and the loop thumbnail on `kenya-hr.html` and `article.html`.
+
+### D-050 · Quote block retired
+Every application of the short quote banner was removed — it appeared on `index.html` and `region-kenya.html`. With no usages left, the component was retired rather than left as dead CSS:
+
+- `.quote`, `.quote::before`, `.quote::after`, `.quote__text`, `.quote__by`, `.quote__name`, `.quote__role` and their responsive rules deleted
+- `--fs-quote` and `--ncba-cyan-light` removed — the quote block was their only consumer
+- Section removed from `component-specs.md` and the brand guide; the SharePoint mapping row dropped from `handoff.md`
+
+**Consequence:** the Ubuntu texture now appears in exactly **one** CSS component, the campaign tag (`.chip`). Everywhere else the pattern comes baked into the artwork (D-045). Verified: one `ubuntu-texture` reference remains in the stylesheet.
+
+Home page is now: GMD video -> Monica HR banner -> carousel -> Ubuntu Spirit video -> news -> help. Kenya: GMD video -> Monica HR banner -> news -> help.
+
 ### D-019 · The acceptance grep covers `docs/` too
 Running the checker revealed that `implementation-plan.md`, `decisions.md` and `check.py` all contained the forbidden competitor name **while documenting the rule forbidding it** — which would have failed `grep -ril` over the tree. All three now refer to it only obliquely, and `check.py` assembles the search term from fragments at runtime. Caught by tooling, not by eye; a good argument for writing the checker before the pages.

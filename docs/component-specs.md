@@ -7,18 +7,17 @@ Design tokens (`--ncba-magenta`, `--sp-4`, …) are defined in `brand/NCBA-brand
 
 ## 0. Locked image dimensions — binding table
 
-**One dimension per slot, across all 7 pages.** Verified against the files on disk in Phase 4.
+**Three slots. One dimension per slot, across all 7 pages.** Verified against the files on disk in Phase 4.
 
 | Slot | CSS class | Locked size | Ratio | Used by | Crop rule |
 |---|---|---|---|---|---|
 | Hero banner | `.hero__img` | **1920 × 310** | 6.19:1 | Page header banner, all 7 pages — **full-bleed** | Centre; photographs anchored 0.18 from top |
 | Main-column media | `.media__img` | **940 × 529** | 16:9 | Carousel slides · video thumbnails · full-width feature images · article hero | 1920 × 1080 sources uncropped |
 | Loop thumbnail | `.loop__img` | **320 × 180** | 16:9 | Blog-loop side image (news **and** video variants) | 1:1 sources top-anchored |
-| Sidebar tile | `.tile__img` | **288 × 162** | 16:9 | Sidebar widget imagery | 1:1 sources top-anchored |
 
 Every `<img>` carries explicit `width` and `height` attributes equal to its slot size, so layout space is reserved before decode and pages do not reflow.
 
-**Output directories** mirror the slots: `assets/img/hero/`, `assets/img/media/`, `assets/img/loop/`, `assets/img/tile/`, plus `assets/img/ncba-logo-white.png`.
+**Output directories** mirror the slots: `assets/img/hero/`, `assets/img/media/`, `assets/img/loop/`, plus `assets/img/ncba-logo-white.png` and `assets/img/ubuntu-texture.jpg` (a CSS background, not a slot).
 
 ---
 
@@ -65,7 +64,7 @@ All inline SVG, 20px, `currentColor` white. Search is a non-submitting `<input t
 ```html
 <header class="sitehead">
   <a class="sitehead__brand" href="index.html">
-    <img src="assets/img/ncba-logo-white.png" alt="NCBA" width="88" height="26">
+    <img src="assets/img/ncba-logo-white.png" alt="NCBA" width="71" height="26">
     <span class="sitehead__title">Ubuntu Hub</span>
   </a>
   <nav class="sitehead__nav" aria-label="Main">
@@ -187,22 +186,6 @@ Slides **940 × 529**. Track is `display:flex` with `transform: translateX(-100%
 ```
 
 Image **940 × 529**. `.media__play` is a 64px circle, `rgba(255,255,255,.92)`, centred, containing a 22px magenta CSS triangle. Hover: circle → `#FFFFFF`, `scale(1.06)`. The whole tile is one link, so there is a single tab stop.
-
----
-
-## 8. Quote block — `.quote`
-
-```html
-<figure class="quote">
-  <blockquote class="quote__text">…</blockquote>
-  <figcaption class="quote__by">
-    <span class="quote__name">Monica Kihia</span>
-    <span class="quote__role">Group Director, HR and Culture</span>
-  </figcaption>
-</figure>
-```
-
-Full width of the main column. Ground `--ncba-purple` with `assets/img/tile/ubuntu-texture.png` as a CSS `background-image` at `opacity:.14` / `background-size:420px` — applied via a `::before` layer so it is decorative and invisible to screen readers. 8px Ubuntu-pattern left strip (`.quote::after`), `--radius-lg`, padding 32px 40px. Quote `--fs-quote` white; name 14/600 white; role 12/400 `--ncba-cyan`.
 
 ---
 

@@ -29,9 +29,9 @@ Links with no page behind them resolve to an in-page anchor (`#main`, `#news`, `
 ## 2. File map
 
 ```
-index.html                Group home (L1) — banner, carousel, Ubuntu video, quote, 5 news, help
+index.html                Group home (L1) — banner, GMD video, HR banner, carousel, Ubuntu video, 5 news, help
 connect-with-john.html    GMD page (L1) — CEO banner, 5 video-thumbnail articles
-region-kenya.html         Kenya (L2) — country banner + CSS flag, GMD video, quote, 5 news
+region-kenya.html         Kenya (L2) — country banner + CSS flag, GMD video, HR banner, 5 news
 kenya-mcc.html            Marketing, Communications & Citizenship (L3)
 kenya-strategy.html       Strategy (L3) — Louisa Wandabwa feature + strategy video
 kenya-hr.html             Human Resources (L3)
@@ -41,13 +41,12 @@ assets/css/ncba.css       The single stylesheet. All design tokens live at the t
 assets/img/hero/          7 banners      — 1920 x 310
 assets/img/media/         12 main-column images — 940 x 529
 assets/img/loop/          20 blog thumbnails    — 320 x 180
-assets/img/tile/          5 sidebar images      — 288 x 162
-assets/img/ncba-logo-white.png   244 x 86, transparent
-assets/img/ubuntu-texture.jpg    CSS background for quote block and campaign tags
+assets/img/ncba-logo-white.png   233 x 85, transparent
+assets/img/ubuntu-texture.jpg    CSS background for the campaign tags
 
 brand/NCBA-brand-guide.md Colour, type, spacing, grid, component tokens, image table
 docs/implementation-plan.md  Phased build plan with status
-docs/decisions.md            Dated decision log (D-001 … D-023)
+docs/decisions.md            Dated decision log (D-001 … D-049)
 docs/component-specs.md      Per-component markup, classes, dimensions, responsive
 docs/check.py                Automated acceptance checker — see §5
 docs/handoff.md              This file
@@ -70,7 +69,6 @@ The mockup was designed against real SharePoint web parts, so most of it maps 1:
 | **Hero banner** | **Image web part, full-width section** | Must be placed in a **full-width section**, which requires the page layout to have one enabled. The title bar below it is a Text web part on a coloured full-width section. |
 | Carousel | Hero web part (carousel layout) or News carousel | Native hero supports 5 tiles. Captions come from the item, not from the image. |
 | Video thumbnail | Stream / Embed web part, or File viewer | The mockup uses a still + play button because there is no video file. Swap for the real Stream embed. |
-| Quote block | Text web part with custom formatting | The Ubuntu pattern background needs either a section background image or a small CSS extension. |
 | **Blog-post loop** | **News web part, "List" layout** | The closest native match. Campaign tags map to a managed metadata column surfaced via a page-property; if that is too heavy, use the News category field. |
 | Campaign tag chip | — | No native equivalent with a textured fill. Either accept a flat brand colour or add an SPFx extension. **This is the one component that cannot be done with out-of-the-box web parts alone.** |
 | **Quick Links buttons** | **Quick Links web part, Button layout** | Exactly what the mockup replicates — see `Reference/PAGES/Test Site - Sidebar Quick links.html`, "Active programs" section. Icons come from the Fluent icon set. |
@@ -131,7 +129,6 @@ It needs Python 3 and Pillow (`pip install pillow`). Without Pillow it still run
 | `hero-banner` | 1920 × 310 | page banner, all 7 pages, full-bleed |
 | `media-16x9` | 940 × 529 | carousel, video thumbnails, feature images, article hero |
 | `loop-thumb` | 320 × 180 | blog-loop side image |
-| `sidebar-tile` | 288 × 162 | sidebar imagery |
 
 If you add an image, generate it at the slot size or the checker will fail. The regeneration rules — including that 1:1 sources are cropped **top-anchored** so headlines are not decapitated — are in `decisions.md` D-009 and D-010.
 

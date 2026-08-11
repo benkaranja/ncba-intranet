@@ -3,7 +3,7 @@
 Simplified brand and style guide for the NCBA Group SharePoint intranet redesign.
 **Every value in this document matches `assets/css/ncba.css` exactly.** Where the CSS uses a custom property, the token name is given.
 
-> **Ubuntu pattern:** the supplied artwork carries the pattern baked into its own edges (D-045). In CSS it appears in only two components — the campaign tag and the quote block. Do not add it beside images.
+> **Ubuntu pattern:** the supplied artwork carries the pattern baked into its own edges (D-045). In CSS it now appears in exactly one component — the campaign tag (`.chip`). Do not add it beside images.
 
 **Version:** 1.0 · **Date:** 2026-08-06
 
@@ -20,22 +20,21 @@ All hex values were **sampled directly from the supplied NCBA artwork**, not gue
 | `--ncba-magenta` | `#9F197E` | **Primary brand.** Site header bar, footer bar, active nav underline, primary buttons, tag chips, quick-link icon tiles | Header & footer bar, `Reference/ncba colours.png` |
 | `--ncba-magenta-dark` | `#7C1362` | Hover / pressed state for magenta buttons, links and cards | Derived (−12% lightness) |
 | `--ncba-magenta-light` | `#AC3990` | Hover for **quick-link buttons only** — SharePoint's ButtonCard lightens on hover rather than darkening | Derived (+14% white) |
-| `--ncba-magenta-tint` | `#F6E9F2` | Selected nav background, quote-block tint, subtle brand wash | Derived (8% magenta on white) |
+| `--ncba-magenta-tint` | `#F6E9F2` | Selected nav background, active dropdown item, subtle brand wash | Derived (8% magenta on white) |
 
 ### 1.2 Secondary
 
 | Token | Hex | Role | Sampled from |
 |---|---|---|---|
-| `--ncba-purple` | `#230B49` | **Secondary brand.** Suite bar, dark panel grounds, quote-block ground | KV banner ground |
+| `--ncba-purple` | `#230B49` | **Secondary brand.** Suite bar, dark panel grounds | KV banner ground |
 | `--ncba-purple-deep` | `#1E032F` | Gradient terminus, image overlay ground | KV banner ground |
 
 ### 1.3 Accent
 
 | Token | Hex | Role | Sampled from |
 |---|---|---|---|
-| `--ncba-cyan` | `#5CA5D3` | **Accent.** Links on dark grounds, "Learn more" arrows, eyebrow rules, attribution text | "THE NEW NCBA / UBUNTU HUB" banner headline |
+| `--ncba-cyan` | `#5CA5D3` | **Accent.** Links on dark grounds, "Learn more" arrows, eyebrow rules | "THE NEW NCBA / UBUNTU HUB" banner headline |
 | `--ncba-cyan-dark` | `#3B7FA8` | Accent hover | Derived (−15% lightness) |
-| `--ncba-cyan-light` | `#9BCFEA` | Attribution text on the textured quote ground, where the standard cyan falls below AA | Derived (+30% lightness) |
 | `--ncba-yellow` | `#F2E10E` | **"Go for it" CTA** — reserved for the primary call-to-action button only | "Go for it" badge on every KV banner |
 | `--ncba-yellow-dark` | `#D6C700` | CTA hover | Derived (−10% lightness) |
 
@@ -116,7 +115,6 @@ Root font-size is `16px`, so `1rem = 16px`.
 | Caption / meta / byline | `--fs-caption` | 12 | 0.75 | 400 | 16px (1.333) | 0 |
 | Nav | `--fs-nav` | 14 | 0.875 | 600 | 20px (1.429) | 0 |
 | Button | `--fs-btn` | 14 | 0.875 | 600 | 20px (1.429) | 0.01em |
-| Quote | `--fs-quote` | 24 | 1.5 | 400 | 36px (1.5) | −0.01em |
 
 **Weights used:** 400 regular · 600 semibold · 700 bold. No light or black weights — Segoe UI's light weights are unreliable across platforms.
 
@@ -162,7 +160,7 @@ Root font-size is `16px`, so `1rem = 16px`.
 |---|---|---|
 | `--radius-sm` | 2px | Buttons, tag chips — matches SharePoint's control radius |
 | `--radius-md` | 4px | Cards, images, quick-link icon tiles |
-| `--radius-lg` | 8px | Quote block |
+| `--radius-lg` | 8px | Region/department dropdown panels |
 
 ### 4.2 Elevation
 
@@ -237,19 +235,6 @@ The boxed document-link list used for text-only widgets, matching the widget idi
 | Hover | Border → `--ncba-magenta`, background `--ncba-magenta-tint`, label → `--ncba-magenta` |
 | Gap between rows | `--sp-2` (8px) |
 
-### 5.4 Quote block
-
-| Property | Value |
-|---|---|
-| Ground | `--ncba-purple` with `ubuntu-texture.jpg` at `opacity: .30`, `background-size: 420px`, applied via a `::before` layer so it stays decorative |
-| Radius | `--radius-lg` (8px) |
-| Padding | `--sp-8` `--sp-10` (32px 40px) |
-| Quote mark | `"` 72px, `--ncba-cyan`, `opacity: .55` |
-| Quote text | `--fs-quote` (24px / 400 / 36px) / `#FFFFFF` |
-| Attribution name | `--fs-h5` (14px / 600) / `#FFFFFF` |
-| Attribution role | `--fs-caption` (12px / 400) / `--ncba-cyan-light` |
-| Left rule | 8px Ubuntu-pattern strip (`.quote::after`, `background-size: 400px`) — replaced the flat yellow bar |
-
 ### 5.5 Video thumbnail
 
 | Property | Value |
@@ -301,9 +286,8 @@ Carries the **Ubuntu pattern** behind a purple tint, so the tag reads as an NCBA
 | `hero-banner` | **1920 × 310** | 6.19:1 | Page header banner, all 7 pages — **full-bleed across the viewport** | Centre; photographs anchored 0.18 from top |
 | `media-16x9` | **940 × 529** | 16:9 | Carousel slides · video thumbnails · full-width feature images · article hero | 1920×1080 sources used uncropped |
 | `loop-thumb` | **320 × 180** | 16:9 | Blog-loop side image, news and video variants | 1:1 sources top-anchored |
-| `sidebar-tile` | **288 × 162** | 16:9 | Sidebar widget imagery | 1:1 sources top-anchored |
 
-**Why these numbers:** `hero-banner` is the exact native size of the supplied NCBA intranet banners. Because the banner runs full-bleed across the viewport (not inside the 1300px canvas), rendering at native 1920 × 310 means it is never upscaled at common desktop widths. `media-16x9` is the main column width (940px) at the native 16:9 of the supplied 1920 × 1080 key visuals, so that artwork is never cropped and its headline text is never clipped. `loop-thumb` and `sidebar-tile` hold the same 16:9 so every rounded image on the page shares one shape language.
+**Why these numbers:** `hero-banner` is the exact native size of the supplied NCBA intranet banners. Because the banner runs full-bleed across the viewport (not inside the 1300px canvas), rendering at native 1920 × 310 means it is never upscaled at common desktop widths. `media-16x9` is the main column width (940px) at the native 16:9 of the supplied 1920 × 1080 key visuals, so that artwork is never cropped and its headline text is never clipped. `loop-thumb` holds the same 16:9 so every rounded image on the page shares one shape language. (The `sidebar-tile` slot was retired in D-042 when the sidebar became text-only quick links.)
 
 Every `<img>` carries explicit `width` and `height` attributes matching its slot, so pages reserve layout space and do not reflow as images decode.
 
