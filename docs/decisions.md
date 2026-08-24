@@ -374,5 +374,51 @@ This is a static pitch mockup; a working form would need somewhere to send data,
 
 Accessibility: the textarea carries a `visually-hidden` `<label for="askq">`, so the control is named without adding visible chrome the design does not want.
 
+---
+
+## 2026-08-11 — v2 release, branch `v2-ubuntu-hub`
+
+Built on a branch; `main` and the live Pages site are untouched.
+
+### D-053 · Header rebuilt to six items; UBUNTU capitalised throughout
+`About NCBA` · `Staff` &#9662; · `Culture & Change` · `Departments` &#9662; · `UBUNTU Hub` · `NCBA Group`
+
+- **Staff** &#9662; -> Existing Staff / New Staff, deep-linking into `staff.html`
+- **Departments** &#9662; -> MCC / Strategy / Human Resources / **UBUNTU Hub** (the fourth item, per the client's answer)
+- **Connect with John removed from the header.** `connect-with-john.html` is still built and still reachable through **Ask John** in the sidebar quick links, as instructed
+- "Ubuntu" is now "UBUNTU" in every visible label, heading and body mention. Verified: **zero** lowercase occurrences across all nine pages
+
+### D-054 · One carousel script for every rotator
+The home page now carries two rotators (hero slider and the updates carousel) and the HR page a third. Rather than three copies of the old fixed-ID script, one script binds to every `[data-carousel]` and reads `[data-track]`, `[data-dots]`, `[data-cap]`, `[data-prev]`, `[data-next]`.
+
+Captions are optional — the hero slider has none, so the script simply skips the caption swap. Still the only JavaScript in the project.
+
+### D-055 · Staff Updates reworked around content themes
+The Viva Engage feed now runs the three weekly themes the client asked for — **Monday Blues**, **Midweek Fatigue**, **Furahi Day** — each written as a prompt that asks for something specific rather than announcing at people, and each carrying a reaction row and a seen-count so the engagement is visible.
+
+The **Upcoming events** widget (SharePoint's default) now sits between Quick Links and Staff Updates on every page, as specified.
+
+### D-056 · Home page rebuilt
+1. **Hero slider** — four 1920 x 310 banners, no HTML text; the artwork carries its own headline (D-028 applies).
+2. **Two-up** — GMD and HR messages side by side in the main column, each a full `.media--video` with a play button, using `GMD Quote.png` and `2 Monicah Kihia QUOTE.png`.
+3. **The UBUNTU Spirit** — image swapped to the 2026-2030 UBUNTU Strategy artwork.
+4. **Updates carousel** — Go For It Friday / Upcoming Webinars / Chat with HR / Past Events.
+
+**Flagged at design time and still true:** at half-column width each quote banner renders about 458px wide, so its baked body copy lands near 5px tall and is not readable. That is acceptable *because these are video poster frames* — the play button sets that expectation and nobody reads a poster's body copy. If the quotes need to be legible they must be full-width stacked instead.
+
+### D-057 · One whitelisted external URL
+`NCBA Group` points at `https://ncbagroup.com/`, opening in a new tab with `rel="noopener noreferrer"` and a visible external-link glyph plus a screen-reader hint.
+
+This is the first external destination in the project. Rather than switch off the external-URL check — which is what has guaranteed zero dead links all along — `check.py` now carries an explicit `ALLOWED_EXTERNAL` whitelist containing exactly that one URL. Everything else still fails the check.
+
+### D-058 · Two new pages
+- **`ubuntu-hub.html`** — first pass from existing assets: UBUNTU Spirit video, the Manifesto as styled prose, strategy on a page, Louisa Wandabwa on turning ambition into momentum, document tiles and news. **No BUST section**: no such asset exists in the project, and inventing one would breach the no-fabricated-assets rule. It slots in when the artwork arrives.
+- **`staff.html`** — one page, two sections (`#existing-staff`, `#new-staff`), nine document tiles each, ordered the way the tasks actually happen for a new joiner.
+
+### D-059 · Generator reconstructed
+The authoring scripts lived in a scratchpad that was cleared between sessions. The nine delivered HTML files were never at risk — they are the deliverable and they are in git — but the generator had to be rebuilt from them before this release could be made consistently. It now emits nine pages instead of seven.
+
+Worth recording as a hazard: the generator is not part of the delivered tree, so it is not backed up by the repository. Anyone picking this up should copy it somewhere durable.
+
 ### D-019 · The acceptance grep covers `docs/` too
 Running the checker revealed that `implementation-plan.md`, `decisions.md` and `check.py` all contained the forbidden competitor name **while documenting the rule forbidding it** — which would have failed `grep -ril` over the tree. All three now refer to it only obliquely, and `check.py` assembles the search term from fragments at runtime. Caught by tooling, not by eye; a good argument for writing the checker before the pages.

@@ -65,31 +65,56 @@ All inline SVG, 20px, `currentColor` white. Search is a non-submitting `<input t
 <header class="sitehead">
   <a class="sitehead__brand" href="index.html">
     <img src="assets/img/ncba-logo-white.png" alt="NCBA" width="71" height="26">
-    <span class="sitehead__title">Ubuntu Hub</span>
+    <span class="sitehead__title">UBUNTU Hub</span>
   </a>
   <nav class="sitehead__nav" aria-label="Main">
     <ul>
-      <li><a class="is-active" href="index.html">Group</a></li>
-      <li><a href="connect-with-john.html">Connect with John</a></li>
-      <li class="has-menu">
-        <a href="region-kenya.html">Region <svg class="caret">…</svg></a>
-        <ul class="menu">…5 countries…</ul>
-      </li>
-      …
+      <li><a href="#main">About NCBA</a></li>
+      <li class="has-menu"><a href="staff.html">Staff <svg class="caret">…</svg></a>
+        <ul class="menu">…Existing Staff · New Staff…</ul></li>
+      <li><a href="#news">Culture &amp; Change</a></li>
+      <li class="has-menu"><a href="kenya-mcc.html">Departments <svg class="caret">…</svg></a>
+        <ul class="menu">…MCC · Strategy · Human Resources · UBUNTU Hub…</ul></li>
+      <li><a href="ubuntu-hub.html">UBUNTU Hub</a></li>
+      <li><a class="is-external" href="https://ncbagroup.com/" target="_blank" rel="noopener noreferrer">
+        NCBA Group <svg class="ext">…</svg><span class="visually-hidden"> (opens in a new tab)</span></a></li>
     </ul>
   </nav>
 </header>
 ```
 
-**Nav order (fixed on all 7 pages):** Group · Connect with John · Region ▾ · Connect to Systems · Form Downloads · BUZZ · Rate My Service · Culture & Change · Automation Center · Sustainability
+**Nav order (fixed on all nine pages, D-053):** About NCBA · Staff ▾ · Culture & Change · Departments ▾ · UBUNTU Hub · NCBA Group ↗
 
-**Region dropdown `.menu`** — CSS-only, opens on `:hover` and `:focus-within`. Items: Kenya · Uganda · Tanzania · Rwanda, all → `region-kenya.html`. White panel, `--shadow-card-hover`, 220px wide, 8px radius, 36px rows.
+**Dropdowns `.menu`** — CSS-only, open on `:hover` and `:focus-within`. White panel, `--shadow-card-hover`, 220px wide, 8px radius, 36px rows.
+
+**External item** — `NCBA Group` carries `.is-external`, an 11px `.ext` glyph, `target="_blank"`, `rel="noopener noreferrer"` and a `visually-hidden` "(opens in a new tab)". It is the **only** external URL permitted anywhere; `check.py` whitelists exactly that one (D-057).
 
 | State | Treatment |
 |---|---|
 | Rest | `#FFFFFF` at 92% opacity, `--fs-nav` |
 | Hover | 100% + `rgba(255,255,255,.12)` background |
 | `.is-active` | 100%, weight 700, 3px `--ncba-yellow` bottom border |
+
+---
+
+## 4. Secondary nav — `.subnav`
+
+Two variants.
+
+**Departments strip** — on `kenya-mcc`, `kenya-strategy`, `kenya-hr`, `ubuntu-hub`. Four plain items: MCC · Strategy · Human Resources · UBUNTU Hub. Active item: `--ncba-magenta`, weight 700, 2px underline.
+
+**Country strip** — retained on `region-kenya.html` only. Kenya · Uganda · Tanzania · Rwanda, each carrying a CSS-only dropdown of the four departments (D-038).
+
+```html
+<nav class="subnav" aria-label="Departments">
+  <div class="subnav__inner">
+    <div class="subnav__item"><a class="is-active" href="kenya-mcc.html">MCC</a></div>
+    …
+  </div>
+</nav>
+```
+
+**`.subnav__inner` must not set `overflow-x: auto`** — it would clip the country dropdowns. It wraps instead.
 
 ---
 
@@ -146,32 +171,79 @@ The Ubuntu pattern is **baked into the supplied artwork's own edges** (D-045); n
 
 ---
 
-## 6. Carousel — `.carousel` (index.html only)
+## 6. Carousel — `.carousel`
+
+Used for the home-page updates carousel and the HR page carousel.
 
 ```html
-<div class="carousel" aria-roledescription="carousel" aria-label="NCBA Group highlights">
+<div class="carousel" data-carousel aria-roledescription="carousel" aria-label="…">
   <div class="carousel__viewport">
-    <div class="carousel__track" id="carouselTrack">
+    <div class="carousel__track" data-track>
       <figure class="carousel__slide" data-title="…" data-text="…">
         <img class="media__img" src="assets/img/media/x.jpg" width="940" height="529" alt="…">
       </figure>
       …
     </div>
-    <button class="carousel__btn carousel__btn--prev" id="carouselPrev" aria-label="Previous slide">…</button>
-    <button class="carousel__btn carousel__btn--next" id="carouselNext" aria-label="Next slide">…</button>
+    <button class="carousel__btn carousel__btn--prev" data-prev type="button">…</button>
+    <button class="carousel__btn carousel__btn--next" data-next type="button">…</button>
   </div>
-  <div class="carousel__cap" id="carouselCap" aria-live="polite"><h3></h3><p></p></div>
-  <div class="carousel__dots" id="carouselDots"></div>
+  <div class="carousel__cap" data-cap aria-live="polite"><h3></h3><p></p></div>
+  <div class="carousel__dots" data-dots></div>
 </div>
 ```
 
-Slides **940 × 529**. Track is `display:flex` with `transform: translateX(-100% * i)` and a 400ms ease transition. Dots are 10px, `--line-strong`, current dot `--ncba-magenta`.
+Slides **940 × 529**. Track is `display:flex` with `transform: translateX(-100% * i)`, 400ms ease. Dots 10px, current dot `--ncba-magenta`.
 
-**The caption sits below the viewport, not over the slide** (decision D-017) — the artwork carries its own copy. Caption text lives in `data-title` / `data-text` on each slide and the script swaps it on change; `.carousel__cap` has `min-height: 76px` so the page does not jump between slides of differing caption length.
+**Caption sits below the viewport, never over the artwork** (D-017) — the artwork carries its own copy. Text lives in `data-title` / `data-text` and the script swaps it; `min-height: 76px` stops the page jumping between slides.
 
-**The prev/next buttons live inside `.carousel__viewport`**, which is the positioning context. That keeps them vertically centred on the *image* rather than on the image-plus-caption box. 36px circles, `rgba(255,255,255,.9)`, `--shadow-card`.
+**Shared script (D-054).** One inline script binds to **every** `[data-carousel]` on the page, reading `[data-track]`, `[data-dots]`, `[data-cap]`, `[data-prev]`, `[data-next]`. Captions are optional, so the same script drives the hero slider, which has none. This is the only JavaScript in the project; no autoplay, no dependencies, and `prefers-reduced-motion: reduce` drops the transition.
 
-**JS — the only script in the project.** ~34 lines of vanilla JS inline at the end of `index.html`: index state, prev/next, dot click, caption swap, and `aria-hidden` on non-current slides. No autoplay — it steals focus and is a common accessibility complaint. No dependencies. `prefers-reduced-motion: reduce` drops the transition.
+---
+
+## 6c. Hero slider — `.heroslider` (index.html)
+
+Full-bleed rotator of four 1920 × 310 banners. **No HTML text** — the artwork carries its own headline (D-028, D-053).
+
+```html
+<section class="hero heroslider" data-carousel aria-roledescription="carousel" aria-label="…">
+  <div class="heroslider__viewport">
+    <div class="heroslider__track" data-track>
+      <figure class="heroslider__slide"><img class="hero__img" … width="1920" height="310"></figure>
+      …
+    </div>
+    <button class="heroslider__btn heroslider__btn--prev" data-prev type="button">…</button>
+    <button class="heroslider__btn heroslider__btn--next" data-next type="button">…</button>
+    <div class="heroslider__dots" data-dots></div>
+  </div>
+  <h1 class="visually-hidden">…</h1>
+</section>
+```
+
+Arrows are 40px circles inset `--sp-6`; dots overlay the foot of the banner in white. Driven by the shared `[data-carousel]` script (D-054) — it has no `[data-cap]`, so the script skips the caption swap.
+
+---
+
+## 6d. Two-up media row — `.twoup`
+
+Two video posters side by side in the main column, used for the GMD and HR messages on the home page.
+
+```html
+<div class="twoup">
+  <div class="twoup__col">
+    <h3 class="twoup__title">A message from the GMD</h3>
+    <a class="media media--video" href="article.html">
+      <img class="media__img" … width="940" height="529">
+      <span class="media__play" aria-hidden="true"></span>
+    </a>
+    <p class="media__cap">…</p>
+  </div>
+  …
+</div>
+```
+
+`grid-template-columns: 1fr 1fr`, gap `--sp-6`; play button shrinks to 52px. Stacks to one column below 720px.
+
+**Legibility note:** each tile renders ~458px wide, so a 1920px source's baked body copy lands near 5px. These are **poster frames**, not reading material — the play button sets that expectation. Anything meant to be read must be full-width (D-056).
 
 ---
 

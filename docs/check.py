@@ -21,8 +21,14 @@ except ImportError:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-PAGES = ["index.html", "connect-with-john.html", "region-kenya.html",
-         "kenya-mcc.html", "kenya-strategy.html", "kenya-hr.html", "article.html"]
+PAGES = ["index.html", "ubuntu-hub.html", "staff.html", "connect-with-john.html",
+         "region-kenya.html", "kenya-mcc.html", "kenya-strategy.html",
+         "kenya-hr.html", "article.html"]
+
+# The ONLY external destination allowed anywhere in the tree. Everything else
+# must stay internal, which is what keeps the zero-dead-links guarantee
+# meaningful (D-057).
+ALLOWED_EXTERNAL = ("https://ncbagroup.com/",)
 
 DOCS = ["docs/implementation-plan.md", "docs/decisions.md",
         "docs/component-specs.md", "docs/handoff.md",
@@ -37,8 +43,8 @@ SLOT_DIMS = {
 
 # NCBA Staff Updates sits third on both sidebars, and "Home" is now a quick
 # link rather than its own widget (user change, decisions D-031 / D-032).
-GROUP_SIDEBAR = ["Quick Links", "NCBA Staff Updates"]
-REGIONAL_SIDEBAR = ["Quick Links", "NCBA Staff Updates"]
+GROUP_SIDEBAR = ["Quick Links", "Upcoming events", "NCBA Staff Updates"]
+REGIONAL_SIDEBAR = ["Quick Links", "Upcoming events", "NCBA Staff Updates"]
 
 # The forbidden competitor name. Assembled from fragments so that this file
 # does not itself contain the literal string it is testing for -- the
@@ -108,6 +114,8 @@ def check_links():
                     errors.append(f"{p}: bare href=\"#\" (no anchor target)")
                 elif frag not in ids:
                     errors.append(f"{p}: href=\"#{frag}\" -> no element with that id")
+            elif raw in ALLOWED_EXTERNAL:
+                pass                      # whitelisted external destination
             elif re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*:", raw):
                 errors.append(f"{p}: external/scheme URL not allowed -> {raw}")
             else:

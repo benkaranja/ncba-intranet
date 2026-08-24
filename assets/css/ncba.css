@@ -215,6 +215,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-bottom-color: var(--ncba-yellow);
 }
 .sitehead__nav .caret { width: 10px; height: 10px; flex: 0 0 10px; }
+.sitehead__nav .ext { width: 11px; height: 11px; flex: 0 0 11px; margin-left: 5px; opacity: .85; }
+.sitehead__nav a.is-external:hover .ext { opacity: 1; }
 
 /* Region dropdown — CSS only, no JS */
 .menu {
@@ -251,6 +253,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-1);
 }
 .subnav__item { position: relative; display: flex; align-items: stretch; }
+.subnav__item > a { gap: var(--sp-1); }
 .subnav a {
   display: flex; align-items: center; gap: var(--sp-1);
   height: var(--h-subnav);
@@ -410,6 +413,47 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin-top: var(--sp-2);
   font-size: var(--fs-caption); line-height: 16px; color: var(--muted);
 }
+
+/* --------------------------------------------------------------------------
+   7b. Hero slider — full-bleed rotator (index.html)
+   Shares the [data-carousel] script with the section carousels. No HTML
+   text: the artwork carries its own headline (D-053).
+   -------------------------------------------------------------------------- */
+.heroslider { position: relative; }
+.heroslider__viewport { position: relative; overflow: hidden; }
+.heroslider__track { display: flex; transition: transform .45s cubic-bezier(.25,.8,.25,1); }
+.heroslider__slide { flex: 0 0 100%; margin: 0; min-width: 0; }
+.heroslider__slide img { width: 100%; height: auto; display: block; }
+.heroslider__btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px; border: 0; border-radius: 50%;
+  background: rgba(255,255,255,.88); color: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; box-shadow: var(--shadow-card);
+}
+.heroslider__btn:hover { background: #fff; }
+.heroslider__btn--prev { left: var(--sp-6); }
+.heroslider__btn--next { right: var(--sp-6); }
+.heroslider__dots {
+  position: absolute; left: 0; right: 0; bottom: var(--sp-4);
+  display: flex; align-items: center; justify-content: center; gap: var(--sp-2);
+}
+.heroslider__dots .carousel__dot {
+  background: rgba(255,255,255,.5);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.25);
+}
+.heroslider__dots .carousel__dot.is-current { background: #fff; }
+
+/* --------------------------------------------------------------------------
+   9b. Two-up media row — .twoup
+   Two video posters side by side in the main column. Each tile is a full
+   .media--video, so both keep the play affordance (D-056).
+   -------------------------------------------------------------------------- */
+.twoup { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6); }
+.twoup__col { min-width: 0; }
+.twoup__title { margin: 0 0 var(--sp-3); font-size: var(--fs-h3); }
+.twoup .media__play { width: 52px; height: 52px; }
+.twoup .media__play::after { border-width: 9px 0 9px 15px; margin-left: 3px; }
 
 /* --------------------------------------------------------------------------
    11. Blog-post loop — thumbnails locked to 320 x 180
@@ -625,6 +669,10 @@ a.events__title:hover { color: var(--ncba-magenta); text-decoration: none; }
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 .feed__tag { display: inline-block; margin-top: var(--sp-2); font-size: 13px; font-weight: 600; }
+.feed__react {
+  display: block; margin-top: var(--sp-2);
+  font-size: var(--fs-caption); line-height: 18px; color: var(--body);
+}
 .feed__views { display: block; margin-top: var(--sp-1); font-size: var(--fs-caption); color: var(--muted); }
 .feed__comment {
   width: 100%; margin-top: var(--sp-2); height: 32px; padding: 0 var(--sp-3);
@@ -832,6 +880,9 @@ a.events__title:hover { color: var(--ncba-magenta); text-decoration: none; }
   .carousel__btn--prev { left: var(--sp-1); }
   .carousel__btn--next { right: var(--sp-1); }
 
+  .twoup { grid-template-columns: minmax(0, 1fr); gap: var(--sp-8); }
+  .heroslider__btn--prev { left: var(--sp-2); }
+  .heroslider__btn--next { right: var(--sp-2); }
   .help__grid { grid-template-columns: minmax(0, 1fr); }
   .doctiles { grid-template-columns: minmax(0, 1fr); }
   .related__grid { grid-template-columns: minmax(0, 1fr); }
@@ -839,6 +890,7 @@ a.events__title:hover { color: var(--ncba-magenta); text-decoration: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .carousel__track { transition: none; }
+  .carousel__track,
+  .heroslider__track { transition: none; }
   .media__play { transition: none; }
 }

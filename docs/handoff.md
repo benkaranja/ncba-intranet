@@ -29,27 +29,22 @@ Links with no page behind them resolve to an in-page anchor (`#main`, `#news`, `
 ## 2. File map
 
 ```
-index.html                Group home (L1) — banner, GMD video, HR banner, carousel, Ubuntu video, 5 news, help
-connect-with-john.html    GMD page (L1) — CEO banner, 5 video-thumbnail articles
-region-kenya.html         Kenya (L2) — country banner + CSS flag, GMD video, HR banner, 5 news
-kenya-mcc.html            Marketing, Communications & Citizenship (L3)
-kenya-strategy.html       Strategy (L3) — Louisa Wandabwa feature + strategy video
-kenya-hr.html             Human Resources (L3)
-article.html              Full post view (L4) — hero, byline, body, share, related
+index.html                Group home — hero slider, GMD/HR two-up, UBUNTU Spirit, updates carousel, news
+ubuntu-hub.html           UBUNTU Hub — Spirit video, Manifesto, strategy on a page, Louisa
+staff.html                Staff — Existing Staff / New Staff sections
+connect-with-john.html    GMD page — Ask-the-GMD composer, 5 video articles
+region-kenya.html         Kenya — country banner + CSS flag, GMD video, HR banner
+kenya-mcc.html            Marketing, Communications & Citizenship
+kenya-strategy.html       Strategy
+kenya-hr.html             Human Resources — plus its own HR carousel
+article.html              Full post view
 
 assets/css/ncba.css       The single stylesheet. All design tokens live at the top.
-assets/img/hero/          7 banners      — 1920 x 310
-assets/img/media/         12 main-column images — 940 x 529
-assets/img/loop/          20 blog thumbnails    — 320 x 180
+assets/img/hero/          12 banners           — 1920 x 310
+assets/img/media/         16 main-column images — 940 x 529
+assets/img/loop/          19 blog thumbnails    — 320 x 180
 assets/img/ncba-logo-white.png   233 x 85, transparent
 assets/img/ubuntu-texture.jpg    CSS background for the campaign tags
-
-brand/NCBA-brand-guide.md Colour, type, spacing, grid, component tokens, image table
-docs/implementation-plan.md  Phased build plan with status
-docs/decisions.md            Dated decision log (D-001 … D-049)
-docs/component-specs.md      Per-component markup, classes, dimensions, responsive
-docs/check.py                Automated acceptance checker — see §5
-docs/handoff.md              This file
 ```
 
 Source folders (`Reference/`, `Images/`) were **not modified**. Nothing was deleted, moved or renamed.
@@ -63,8 +58,8 @@ The mockup was designed against real SharePoint web parts, so most of it maps 1:
 | Mockup component | Native SharePoint equivalent | Notes for the implementer |
 |---|---|---|
 | Suite bar | Microsoft 365 suite header | Comes free. The mockup recolours it to `#230B49`; native theming controls this via the site theme, not per-page CSS. |
-| Site header + main nav | Hub site navigation | Set the hub nav once; it propagates. "Connect with John" sits between Group and Region. |
-| Region dropdown | Hub nav cascading menu | Native supports one level of children — sufficient for the five countries. |
+| Site header + main nav | Hub site navigation | Set the hub nav once; it propagates. Six items — see `implementation-plan.md` §5. The NCBA Group item is the only external link. |
+| Staff / Departments dropdowns | Hub nav cascading menu | Native supports one level of children — sufficient for both. |
 | Secondary nav | Site navigation (local) | On Kenya and the three department sites. |
 | **Hero banner** | **Image web part, full-width section** | Must be placed in a **full-width section**, which requires the page layout to have one enabled. The title bar below it is a Text web part on a coloured full-width section. |
 | Carousel | Hero web part (carousel layout) or News carousel | Native hero supports 5 tiles. Captions come from the item, not from the image. |
